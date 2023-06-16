@@ -52,8 +52,12 @@ public class registerController {
         }
         
         public boolean checkUser(registerModel user) throws Exception
+               
         {
-            try
+            String pass1 = user.getPass();
+            String pass2 = user.getRe_pass();
+            if (pass1.equals(pass2)){
+                try
             {
                 Connection conn=myConnection.myDatabase();
                 String sql="insert into users (uname,pass,re_pass,email,sec_ans) values (?,?,?,?,?)";
@@ -76,6 +80,11 @@ public class registerController {
             {
                 System.out.println(e2.getMessage());   
             }
+            }
+            else{
+                view.setMessage("Password Verification Error!");
+            }
+            
             return false; 
         }
     }
