@@ -13,12 +13,10 @@ public class loginrecoverModel {
     
     public loginrecoverModel(String email, String sec_ans){
         
-  
         this.email=email;
         this.sec_ans=sec_ans;
     
 }
-
     public String getEmail() {
         return email;
     }
