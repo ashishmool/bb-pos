@@ -4,7 +4,7 @@
  */
 package controller;
 
-import database.myConnection;
+import database.*;
 import model.*;
 import view.*;
 import java.sql.*;
@@ -35,9 +35,8 @@ public class loginrecoverController {
                     if(checkUser(model))
                     {
                         view.setMessage("Login for Recovery Successful!");
-                        recoverView rv2 = new recoverView();
-                        rv2.setVisible(true);
-                        view.dispose();
+                        view.validDisplay();
+//                        view.dispose();
                     }
                     else
                     {
@@ -50,14 +49,24 @@ public class loginrecoverController {
                 }
                 
             }
+            
+          
+            
             public boolean checkUser(loginrecoverModel user) throws Exception
             {
+                
+                
+//                new recoverController(email2).view
+                
+                
                 Connection conn = myConnection.myDatabase();
                 String sql="select * from users where email='"+user.getEmail()+"' AND sec_ans='"+user.getSec_ans()+"'";
                 try{
                     stmt=conn.createStatement();
                     rs=stmt.executeQuery(sql);
                     if (rs.next()){
+                        String emailpass=rs.getString(4);
+                        
                         return true;
                     }
                     conn.close();
@@ -67,6 +76,7 @@ public class loginrecoverController {
                     System.out.println(e1.getMessage());
                     
                 }
+                
                 return false;
             }
         }
