@@ -194,6 +194,16 @@ public class loginrecoverView extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnLoginActionPerformed
 
+    /**
+     * Creates new form Login
+     */
+
+    
+    public loginrecoverModel getUser()
+    {
+        model = new loginrecoverModel (txtSec_email.getText(), txtSec_ans.getText());
+        return model;
+    }
     
     public void setMessage (String msg)
     {
