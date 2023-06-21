@@ -4,8 +4,8 @@
  */
 package view;
 
-import java.awt.event.ActionListener;
-import javax.swing.JOptionPane;
+import java.awt.event.*;
+import javax.swing.*;
 import model.*;
 import controller.*;
 
@@ -21,6 +21,13 @@ public class loginrecoverView extends javax.swing.JFrame {
      */
     public loginrecoverView() {
         initComponents();
+        this.setLocationRelativeTo(null);
+    }
+    
+    public void validDisplay(){
+        String email_check=txtSec_email.getText();
+        new recoverView(email_check).setVisible(true);
+        this.dispose();
     }
 
     /**
@@ -171,8 +178,7 @@ public class loginrecoverView extends javax.swing.JFrame {
 
     private void btnRecoverAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecoverAccountActionPerformed
         // TODO add your handling code here:
-        loginrecoverController rc2 = new loginrecoverController(this);
-        
+        loginrecoverController rc2 = new loginrecoverController(this);   
     }//GEN-LAST:event_btnRecoverAccountActionPerformed
 
     private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
@@ -188,16 +194,6 @@ public class loginrecoverView extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnLoginActionPerformed
 
-    /**
-     * Creates new form Login
-     */
-
-    
-    public loginrecoverModel getUser()
-    {
-        model = new loginrecoverModel (txtSec_email.getText(), txtSec_ans.getText());
-        return model;
-    }
     
     public void setMessage (String msg)
     {
