@@ -10,7 +10,9 @@ package controller;
  */
 public class customerController {
     
-    public void function1(){
+    public void function2(){
+
+	system.out.println("This is test");
         
     }
     
