@@ -8,7 +8,7 @@ import database.*;
 import model.*;
 import view.*;
 import java.sql.*;
-import java.util.HashSet;
+import java.util.*;
 
 /**
  *
@@ -16,12 +16,10 @@ import java.util.HashSet;
  */
 public class recoverController {
     
-    recoverModel model;
-    loginrecoverModel logmodel;
+   
     recoverView view;
-    loginrecoverView recview;
-    ResultSet rs;
-    Statement stmt;
+
+    
     
     public recoverController(recoverView view)
     {
@@ -30,10 +28,13 @@ public class recoverController {
         
     }
     
+    
+    
         class RecoveryListener
         {
             public void actionPerformed()
             {
+                
                 
 
             }
