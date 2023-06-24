@@ -26,6 +26,7 @@ public class loginrecoverController {
         new RecoveryListener().actionPerformed();
         
     }
+
         
         class RecoveryListener{
             public void actionPerformed(){
@@ -50,15 +51,10 @@ public class loginrecoverController {
                 
             }
             
-          
-            
+
             public boolean checkUser(loginrecoverModel user) throws Exception
             {
-                
-                
-//                new recoverController(email2).view
-                
-                
+
                 Connection conn = myConnection.myDatabase();
                 String sql="select * from users where email='"+user.getEmail()+"' AND sec_ans='"+user.getSec_ans()+"'";
                 try{
