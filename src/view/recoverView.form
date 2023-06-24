@@ -84,9 +84,9 @@
                           </Group>
                       </Group>
                       <EmptySpace min="-2" pref="103" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="btnDelete" pref="336" max="32767" attributes="0"/>
-                          <Component id="btnUpdateUser" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Component id="btnUpdateUser" min="-2" pref="336" max="-2" attributes="0"/>
+                          <Component id="btnDeleteAcc" min="-2" pref="336" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
                   </Group>
@@ -148,11 +148,18 @@
                           <Component id="lblSecQue" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="lblQuestion" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="lblSecAns" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtSecurity" alignment="3" min="-2" pref="50" max="-2" attributes="0"/>
-                          <Component id="btnDelete" alignment="3" min="-2" pref="60" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="lblSecAns" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtSecurity" alignment="3" min="-2" pref="50" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
+                              <Component id="btnDeleteAcc" min="-2" pref="60" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
@@ -162,7 +169,7 @@
                       <Component id="txtUsername" min="-2" pref="50" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace min="-2" pref="88" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="90" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -309,10 +316,10 @@
         <Property name="text" type="java.lang.String" value="Security Answer:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="btnDelete">
+    <Component class="javax.swing.JButton" name="btnDeleteAcc">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="33" green="33" red="ff" type="rgb"/>
+          <Color blue="0" green="0" red="cc" type="rgb"/>
         </Property>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="24" style="1"/>
@@ -322,6 +329,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Delete Account"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDeleteAccActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

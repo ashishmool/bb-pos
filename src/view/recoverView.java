@@ -7,11 +7,11 @@ package view;
 import javax.swing.*;
 import model.*;
 import controller.*;
-import database.myConnection;
+import database.*;
 import java.awt.event.*;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
+import java.util.*;
+import javax.swing.table.*;
 
 
 /**
@@ -21,23 +21,22 @@ import java.sql.Statement;
 public class recoverView extends javax.swing.JFrame {
     
     recoverModel model;
-    loginrecoverModel logmodel;
-    loginrecoverController lrcontrol;
+    recoverController reccontroller;
+   
     ResultSet rs;
     Statement stmt;
-    
+
     String email_check;
     
-   
 
     /**
      * Creates new form Login
      */
     public recoverView() {
-        
+        recoverController rc3 = new recoverController(this);
         initComponents();
         this.setLocationRelativeTo(null);
-//        recoverController ruc2 = new recoverController(this);
+
     }
     
      public recoverView(String Email){
@@ -70,6 +69,44 @@ public class recoverView extends javax.swing.JFrame {
                 catch (Exception e1){
                     System.out.println(e1.getMessage());
 
+                }
+    }
+    
+    public void deleteUser(){
+
+        try {
+            Connection conn = myConnection.myDatabase();
+            
+            stmt = conn.createStatement();
+            stmt.executeUpdate("DELETE FROM users WHERE email = '"+email_check+"'");
+            
+            System.out.println("User Deleted Successfully!");
+            
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());;
+        }
+    }
+    
+    
+        public void updateUser(){
+            
+        PreparedStatement pst = null;
+        Connection conn = myConnection.myDatabase();
+        
+        String sql = "UPDATE users SET uname=?,pass=?,re_pass=?,email=?,sec_ans=? WHERE email='"+email_check+"'";
+        try
+        {
+            pst = conn.prepareStatement(sql);
+            pst.setString(1,txtUsername.getText());
+            pst.setString(2, txtPassword.getText());
+            pst.setString(3, txtPasswordCheck.getText());
+            pst.setString(4, txtEmail.getText());
+            pst.setString(5, txtSecurity.getText());
+            pst.execute();
+        }
+        catch (Exception e)
+                {
+                    System.out.println(e.getMessage());
                 }
     }
     
@@ -119,7 +156,7 @@ public class recoverView extends javax.swing.JFrame {
         lblQuestion = new javax.swing.JLabel();
         txtSecurity = new javax.swing.JTextField();
         lblSecAns = new javax.swing.JLabel();
-        btnDelete = new javax.swing.JButton();
+        btnDeleteAcc = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -199,10 +236,15 @@ public class recoverView extends javax.swing.JFrame {
         lblSecAns.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblSecAns.setText("Security Answer:");
 
-        btnDelete.setBackground(new java.awt.Color(255, 51, 51));
-        btnDelete.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        btnDelete.setForeground(new java.awt.Color(255, 255, 255));
-        btnDelete.setText("Delete Account");
+        btnDeleteAcc.setBackground(new java.awt.Color(204, 0, 0));
+        btnDeleteAcc.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        btnDeleteAcc.setForeground(new java.awt.Color(255, 255, 255));
+        btnDeleteAcc.setText("Delete Account");
+        btnDeleteAcc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteAccActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -254,9 +296,9 @@ public class recoverView extends javax.swing.JFrame {
                                                 .addComponent(txtPasswordCheck, javax.swing.GroupLayout.PREFERRED_SIZE, 407, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                     .addComponent(txtSecurity, javax.swing.GroupLayout.PREFERRED_SIZE, 407, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(103, 103, 103)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnDelete, javax.swing.GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE)
-                            .addComponent(btnUpdateUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnUpdateUser, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnDeleteAcc, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(41, 41, 41)))
                 .addGap(33, 33, 33))
         );
@@ -301,17 +343,21 @@ public class recoverView extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblSecQue)
                             .addComponent(lblQuestion))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblSecAns)
-                            .addComponent(txtSecurity, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(lblSecAns)
+                                    .addComponent(txtSecurity, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(1, 1, 1)
+                                .addComponent(btnDeleteAcc, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(13, 13, 13)
                         .addComponent(lblTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(29, 29, 29)
                         .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(88, 88, 88))
+                .addGap(90, 90, 90))
         );
 
         pack();
@@ -324,7 +370,16 @@ public class recoverView extends javax.swing.JFrame {
 
     private void btnUpdateUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateUserActionPerformed
         // TODO add your handling code here:
-//            registerController r = new registerController(this);
+        int confirmed = JOptionPane.showConfirmDialog(null, "Update User?","Update",JOptionPane.YES_NO_OPTION);
+         if (confirmed == JOptionPane.YES_OPTION)
+         {
+             updateUser();
+             loginView lv4 = new loginView();
+             lv4.setVisible(true);
+             this.dispose();
+         }
+
+
     }//GEN-LAST:event_btnUpdateUserActionPerformed
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
@@ -345,6 +400,18 @@ public class recoverView extends javax.swing.JFrame {
     private void txtSecurityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSecurityActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtSecurityActionPerformed
+
+    private void btnDeleteAccActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteAccActionPerformed
+        int confirmed = JOptionPane.showConfirmDialog(null, "Delete User?","Delete",JOptionPane.YES_NO_OPTION);
+        if (confirmed == JOptionPane.YES_OPTION)
+        {
+            deleteUser();
+//            recoverController.deleteUser();
+            loginView lv3 = new loginView();
+            lv3.setVisible(true);
+            this.dispose();
+        }
+    }//GEN-LAST:event_btnDeleteAccActionPerformed
 
     public void addLoginListener(ActionListener log) {
         btnUpdateUser.addActionListener(log);
@@ -401,7 +468,7 @@ public class recoverView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnDelete;
+    private javax.swing.JButton btnDeleteAcc;
     private javax.swing.JButton btnLogin;
     private javax.swing.JButton btnUpdateUser;
     private javax.swing.JLabel lblEmail;
@@ -421,6 +488,8 @@ public class recoverView extends javax.swing.JFrame {
     private javax.swing.JTextField txtSecurity;
     private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
+ 
+    
 
     
 }
