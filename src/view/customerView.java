@@ -728,7 +728,7 @@ public class customerView extends javax.swing.JPanel {
             txtNationality.setText(customer.getCustomer_nationality());
         }else{
             txtFullName.setText("");
-            txtMobile.setText(customer.getCustomer_mobile());
+            txtMobile.setText("");
             txtBilling.setText("");
             txtShipping.setText("");
             txtEmail.setText("");
