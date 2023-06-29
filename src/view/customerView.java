@@ -12,6 +12,7 @@ import java.awt.*;
 import java.util.*;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -58,26 +59,16 @@ public class customerView extends javax.swing.JPanel {
         }
     }
     
-    public void specificloadData(){
-        String cust_id = c_search_tbl.getText();
-
-        ArrayList<customerModel> specificCustomer = customerController.getSpecificCustomers(cust_id);
+    public void specificloadData(String searchRow){
+        
+        ArrayList<customerModel> specificCustomer = customerController.getAllCustomers();
         
         DefaultTableModel dtm = (DefaultTableModel) tblCustomer.getModel();
-        dtm.setRowCount(0);
+        TableRowSorter<DefaultTableModel> trs = new TableRowSorter<>(dtm);
         
-        for (customerModel customer : specificCustomer){
-                Object[] rowData = {
-                customer.getCustomer_id(),
-                customer.getCustomer_name(),
-                customer.getCustomer_mobile(),
-                customer.getCustomer_billingaddress(),
-                customer.getCustomer_shippingaddress(),
-                customer.getCustomer_email(),
-                customer.getCustomer_nationality()
-                };
-                dtm.addRow(rowData);
-        }
+        tblCustomer.setRowSorter(trs);
+        trs.setRowFilter(RowFilter.regexFilter(searchRow));
+
     }
     
     @SuppressWarnings("unchecked")
@@ -118,16 +109,8 @@ public class customerView extends javax.swing.JPanel {
         tblCustomer = new javax.swing.JTable();
         jPanel7 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
-        c_search_tbl = new javax.swing.JTextField();
-        jPanel10 = new javax.swing.JPanel();
-        jLabel16 = new javax.swing.JLabel();
-        sh_nationality = new javax.swing.JTextField();
-        jLabel17 = new javax.swing.JLabel();
-        sh_mob_no = new javax.swing.JTextField();
-        jLabel18 = new javax.swing.JLabel();
-        sh_email = new javax.swing.JTextField();
-        jLabel19 = new javax.swing.JLabel();
-        sh_c_name = new javax.swing.JTextField();
+        txtSearchbyid = new javax.swing.JTextField();
+        lblNote = new javax.swing.JLabel();
         jPanel11 = new javax.swing.JPanel();
         btnCustomerReportAll = new javax.swing.JButton();
         cid = new javax.swing.JTextField();
@@ -400,7 +383,7 @@ public class customerView extends javax.swing.JPanel {
 
             },
             new String [] {
-                "ID", "Customer Name", "Mobile Number", "Billing Address", "Shipping Address", "Email", "Nationality"
+                "Customer ID", "Customer Name", "Mobile Number", "Billing Address", "Shipping Address", "Email", "Nationality"
             }
         ));
         tblCustomer.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -410,137 +393,45 @@ public class customerView extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(tblCustomer);
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel5.setText("Customer ID :");
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel5.setText("Search:");
 
-        c_search_tbl.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        c_search_tbl.addActionListener(new java.awt.event.ActionListener() {
+        txtSearchbyid.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        txtSearchbyid.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                c_search_tblActionPerformed(evt);
+                txtSearchbyidActionPerformed(evt);
             }
         });
-        c_search_tbl.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtSearchbyid.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                c_search_tblKeyReleased(evt);
+                txtSearchbyidKeyReleased(evt);
             }
         });
 
-        jLabel16.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLabel16.setText("Nationality:");
-
-        sh_nationality.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        sh_nationality.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                sh_nationalityKeyReleased(evt);
-            }
-        });
-
-        jLabel17.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLabel17.setText("Customer Name :");
-
-        sh_mob_no.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        sh_mob_no.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                sh_mob_noKeyReleased(evt);
-            }
-        });
-
-        jLabel18.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLabel18.setText("Email :");
-
-        sh_email.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        sh_email.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                sh_emailKeyReleased(evt);
-            }
-        });
-
-        jLabel19.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLabel19.setText("Mobile No. :");
-
-        sh_c_name.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        sh_c_name.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                sh_c_nameActionPerformed(evt);
-            }
-        });
-        sh_c_name.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                sh_c_nameKeyReleased(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
-        jPanel10.setLayout(jPanel10Layout);
-        jPanel10Layout.setHorizontalGroup(
-            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel10Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(sh_nationality, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel16))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(sh_mob_no, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel19))
-                .addGap(29, 29, 29)
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(sh_email, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel18))
-                .addGap(30, 30, 30)
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(sh_c_name, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel17))
-                .addGap(87, 87, 87))
-        );
-        jPanel10Layout.setVerticalGroup(
-            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel10Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel10Layout.createSequentialGroup()
-                        .addComponent(jLabel19)
-                        .addGap(42, 42, 42))
-                    .addComponent(sh_mob_no, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel10Layout.createSequentialGroup()
-                        .addComponent(jLabel17)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(sh_c_name, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel10Layout.createSequentialGroup()
-                        .addComponent(jLabel18)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(sh_email, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel10Layout.createSequentialGroup()
-                        .addComponent(jLabel16)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(sh_nationality, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        lblNote.setText("**Note: You can search using any information in the table.");
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                .addGap(40, 40, 40)
                 .addComponent(jLabel5)
                 .addGap(18, 18, 18)
-                .addComponent(c_search_tbl, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 48, Short.MAX_VALUE))
+                .addComponent(txtSearchbyid, javax.swing.GroupLayout.PREFERRED_SIZE, 503, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(lblNote)
+                .addContainerGap(24, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGap(8, 8, 8)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                .addContainerGap(51, Short.MAX_VALUE)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(c_search_tbl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(txtSearchbyid, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblNote))
+                .addGap(33, 33, 33))
         );
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -549,10 +440,10 @@ public class customerView extends javax.swing.JPanel {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1))
-                .addGap(60, 60, 60)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1132, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(55, 55, 55)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -563,11 +454,11 @@ public class customerView extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGap(0, 345, Short.MAX_VALUE)
                         .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 47, Short.MAX_VALUE))))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
 
         tabCustomer.addTab("Search Customer", jPanel4);
@@ -645,37 +536,22 @@ public class customerView extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void c_search_tblKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_c_search_tblKeyReleased
+    private void txtSearchbyidKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchbyidKeyReleased
        
-        specificloadData();
+        String cust_id = txtSearchbyid.getText();
+        specificloadData(cust_id);
 
-    }//GEN-LAST:event_c_search_tblKeyReleased
+    }//GEN-LAST:event_txtSearchbyidKeyReleased
 
     private void tblCustomerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCustomerMouseClicked
         // mouse clk & get data to textfeld
 
     }//GEN-LAST:event_tblCustomerMouseClicked
 
-    private void c_search_tblActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_c_search_tblActionPerformed
+    private void txtSearchbyidActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearchbyidActionPerformed
         // TODO add your handling code here:
 
-    }//GEN-LAST:event_c_search_tblActionPerformed
-
-    private void sh_nationalityKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_sh_nationalityKeyReleased
-      loadData();
-    }//GEN-LAST:event_sh_nationalityKeyReleased
-
-    private void sh_mob_noKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_sh_mob_noKeyReleased
-//       serch(); 
-    }//GEN-LAST:event_sh_mob_noKeyReleased
-
-    private void sh_emailKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_sh_emailKeyReleased
-//        serch();
-    }//GEN-LAST:event_sh_emailKeyReleased
-
-    private void sh_c_nameKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_sh_c_nameKeyReleased
-//        serch();
-    }//GEN-LAST:event_sh_c_nameKeyReleased
+    }//GEN-LAST:event_txtSearchbyidActionPerformed
 
     private void btnCustomerReportAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCustomerReportAllActionPerformed
 //        // Open All Customers
@@ -783,10 +659,6 @@ public class customerView extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtEmailActionPerformed
 
-    private void sh_c_nameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sh_c_nameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_sh_c_nameActionPerformed
-
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
         // TODO add your handling code here:
         clearText();
@@ -801,15 +673,9 @@ public class customerView extends javax.swing.JPanel {
     private javax.swing.JButton btnSearch;
     private javax.swing.JButton btnUpdate;
     private javax.swing.JButton btnViewCustomerRep;
-    private javax.swing.JTextField c_search_tbl;
     private javax.swing.JTextField cid;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -827,13 +693,10 @@ public class customerView extends javax.swing.JPanel {
     private javax.swing.JLabel lblMobile;
     private javax.swing.JLabel lblName;
     private javax.swing.JLabel lblNationality;
+    private javax.swing.JLabel lblNote;
     private javax.swing.JLabel lblSearch;
     private javax.swing.JLabel lblShipAdd;
     private javax.swing.JCheckBox same;
-    private javax.swing.JTextField sh_c_name;
-    private javax.swing.JTextField sh_email;
-    private javax.swing.JTextField sh_mob_no;
-    private javax.swing.JTextField sh_nationality;
     private javax.swing.JTabbedPane tabCustomer;
     private javax.swing.JTable tblCustomer;
     private javax.swing.JTextArea txtBilling;
@@ -842,6 +705,7 @@ public class customerView extends javax.swing.JPanel {
     private javax.swing.JTextField txtFullName;
     private javax.swing.JTextField txtMobile;
     private javax.swing.JTextField txtNationality;
+    private javax.swing.JTextField txtSearchbyid;
     private javax.swing.JTextArea txtShipping;
     // End of variables declaration//GEN-END:variables
 
