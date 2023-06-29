@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 import model.*;
 import controller.*;
+import java.awt.Toolkit;
 
 /**
  *
@@ -15,11 +16,20 @@ import controller.*;
  */
 public class loginView extends javax.swing.JFrame {
     loginModel model;
+    
+    String uname_pass;
 
     /**
      * Creates new form Login
      */
     public loginView() {
+        initComponents();
+        SetImageIcon();
+        this.setLocationRelativeTo(null);
+    }
+    
+    public loginView(String Unpass){
+        uname_pass = Unpass;
         initComponents();
     }
 
@@ -240,6 +250,13 @@ public class loginView extends javax.swing.JFrame {
         });
     }
 
+    private void SetImageIcon(){
+        
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("logo.png")));
+        
+    }
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLogin;
     private javax.swing.JButton btnRecover;

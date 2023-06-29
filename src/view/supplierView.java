@@ -848,8 +848,8 @@ public class supplierView extends javax.swing.JPanel {
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // Open All Customers
         
-        reportView r = new reportView("src\\reports\\Allsupplier.jasper");
-        r.setVisible(true);
+//        reportView r = new reportView("src\\reports\\Allsupplier.jasper");
+//        r.setVisible(true);
         
     }//GEN-LAST:event_jButton5ActionPerformed
 
