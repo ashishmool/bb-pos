@@ -7,6 +7,7 @@ package controller;
 import java.sql.*;
 import java.util.*;
 import database.*;
+import javax.swing.table.DefaultTableModel;
 //import view.*;
 import model.*;
 
@@ -87,7 +88,7 @@ public static boolean updateCustomer(customerModel customer){
 public static boolean deleteCustomer(customerModel customer){
     try{
         Connection connection = myConnection.myDatabase();
-        String sql = "DELETE FROM membership WHERE id = ?";
+        String sql = "DELETE FROM membership WHERE c_id = ?";
         PreparedStatement pst = connection.prepareStatement(sql);
         pst.setObject(1, customer.getCustomer_id());
         int result = pst.executeUpdate();
@@ -124,6 +125,35 @@ public static ArrayList<customerModel> getAllCustomers(){
             System.out.println(e3.getMessage());
         }
     return allCustomer;
+}
+
+public static ArrayList<customerModel> getSpecificCustomers(String cust_id){
+    ArrayList<customerModel> specificCustomer = new ArrayList<>();
+    try{
+        String sql = "SELECT * FROM membership WHERE c_id = ?";
+        Connection connection = myConnection.myDatabase();
+        PreparedStatement pst = connection.prepareStatement(sql);
+        pst.setString(1, cust_id);
+
+        ResultSet rset = pst.executeQuery();
+        
+        while (rset.next()){
+            String customer_id = rset.getString("c_id");
+            String customer_name = rset.getString("full_name");
+            String customer_mobile = rset.getString("mob_no");
+            String customer_billingaddress = rset.getString("bill_add");
+            String customer_shippingaddress = rset.getString("ship_add");
+            String customer_email = rset.getString("email");
+            String customer_nationality = rset.getString("nationality");
+            
+            customerModel customer = new customerModel(customer_id,customer_name,customer_mobile,customer_billingaddress,customer_shippingaddress,customer_email,customer_nationality);
+            specificCustomer.add(customer);
+        }
+    }
+    catch (SQLException e3){
+            System.out.println(e3.getMessage());
+        }
+    return specificCustomer;
 }
 
 }

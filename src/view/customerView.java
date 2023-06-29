@@ -30,7 +30,6 @@ public class customerView extends javax.swing.JPanel {
     }
     
      public void clearText(){
-         
         txtCustomerId.setText("");
         txtFullName.setText("");
         txtMobile.setText("");
@@ -38,28 +37,48 @@ public class customerView extends javax.swing.JPanel {
         txtShipping.setText("");
         txtEmail.setText("");
         txtNationality.setText("");
-
     }
     
     public void loadData(){
+        
         ArrayList<customerModel> allCustomer = customerController.getAllCustomers();
         
         DefaultTableModel dtm = (DefaultTableModel) tblCustomer.getModel();
         dtm.setRowCount(0);
         
         for (customerModel customer : allCustomer){
-            Object[] rowData = {customer.getCustomer_id(),
+                Object[] rowData = {customer.getCustomer_id(),
                 customer.getCustomer_name(),
                 customer.getCustomer_mobile(),
                 customer.getCustomer_billingaddress(),
                 customer.getCustomer_shippingaddress(),
                 customer.getCustomer_email(),
                 customer.getCustomer_nationality()};
-            dtm.addRow(rowData);
-            }
+                dtm.addRow(rowData);
         }
+    }
     
+    public void specificloadData(){
+        String cust_id = c_search_tbl.getText();
 
+        ArrayList<customerModel> specificCustomer = customerController.getSpecificCustomers(cust_id);
+        
+        DefaultTableModel dtm = (DefaultTableModel) tblCustomer.getModel();
+        dtm.setRowCount(0);
+        
+        for (customerModel customer : specificCustomer){
+                Object[] rowData = {
+                customer.getCustomer_id(),
+                customer.getCustomer_name(),
+                customer.getCustomer_mobile(),
+                customer.getCustomer_billingaddress(),
+                customer.getCustomer_shippingaddress(),
+                customer.getCustomer_email(),
+                customer.getCustomer_nationality()
+                };
+                dtm.addRow(rowData);
+        }
+    }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -627,67 +646,23 @@ public class customerView extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void c_search_tblKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_c_search_tblKeyReleased
-
-//        String cust_id = c_search_tbl.getText();
-//        try {
-//
-//            DefaultTableModel dt = (DefaultTableModel) tblCustomer.getModel();
-//            dt.setRowCount(0);
-//            Statement s = myConnection.myDatabase().createStatement();
-//
-//            ResultSet rs = s.executeQuery("SELECT * FROM customer WHERE c_id LIKE '%"+cust_id+"%' ");
-//
-//            while (rs.next()) {
-//                Vector v = new Vector();
-//
-//                v.add(rs.getString(1));
-//                v.add(rs.getString(2));
-//                v.add(rs.getString(3));
-//                v.add(rs.getString(4));
-//                v.add(rs.getString(5));
-//                v.add(rs.getString(6));
-//                v.add(rs.getString(7));
-//
-//                dt.addRow(v);
-//
-//            }
-//
-//        } catch (Exception e) {
-//            tb_load();
-//
-//        }
+       
+        specificloadData();
 
     }//GEN-LAST:event_c_search_tblKeyReleased
 
     private void tblCustomerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCustomerMouseClicked
         // mouse clk & get data to textfeld
 
-//        int r = tblCustomer.getSelectedRow();
-//
-//        String c_id = tblCustomer.getValueAt(r, 0).toString();
-//        String full_name = tblCustomer.getValueAt(r, 1).toString();
-//        String mob_no = tblCustomer.getValueAt(r, 2).toString();
-//        String bill_add = tblCustomer.getValueAt(r, 3).toString();
-//        String ship_add = tblCustomer.getValueAt(r, 4).toString();
-//        String email = tblCustomer.getValueAt(r, 5).toString();
-//        String nationality = tblCustomer.getValueAt(r, 6).toString();
-//
-//        txtCustomerId.setText(c_id);
-//        txtFullName.setText(full_name);
-//        txtMobile.setText(mob_no);
-//        txtBilling.setText(bill_add);
-//        txtShipping.setText(ship_add);
-//        txtEmail.setText(email);
-//        txtNationality.setText(nationality);
-
     }//GEN-LAST:event_tblCustomerMouseClicked
 
     private void c_search_tblActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_c_search_tblActionPerformed
         // TODO add your handling code here:
+
     }//GEN-LAST:event_c_search_tblActionPerformed
 
     private void sh_nationalityKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_sh_nationalityKeyReleased
-//      serch();  
+      loadData();
     }//GEN-LAST:event_sh_nationalityKeyReleased
 
     private void sh_mob_noKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_sh_mob_noKeyReleased
@@ -705,16 +680,11 @@ public class customerView extends javax.swing.JPanel {
     private void btnCustomerReportAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCustomerReportAllActionPerformed
 //        // Open All Customers
 
-        
     }//GEN-LAST:event_btnCustomerReportAllActionPerformed
 
     private void btnViewCustomerRepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewCustomerRepActionPerformed
         // serch customerView for id
-        
-
-        
-        
-        
+  
     }//GEN-LAST:event_btnViewCustomerRepActionPerformed
 
     private void sameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sameActionPerformed
@@ -741,7 +711,6 @@ public class customerView extends javax.swing.JPanel {
           else{
               JOptionPane.showMessageDialog(this, "Error! Customer could not be added...");
           }
-        
         
     }//GEN-LAST:event_btnSaveActionPerformed
 
@@ -782,6 +751,7 @@ public class customerView extends javax.swing.JPanel {
         if (result) {
             JOptionPane.showMessageDialog(this, "Customer Updated Sucessfully");
             clearText();
+            loadData();
         } else {
             JOptionPane.showMessageDialog(this, "Error! Customer could not be updated...");
         }
@@ -802,6 +772,7 @@ public class customerView extends javax.swing.JPanel {
         if (result) {
             JOptionPane.showMessageDialog(this, "Customer Deleted Sucessfully");
             clearText();
+            loadData();
         } else {
             JOptionPane.showMessageDialog(this, "Error! Customer could not be deleted...");
         }
@@ -874,7 +845,5 @@ public class customerView extends javax.swing.JPanel {
     private javax.swing.JTextArea txtShipping;
     // End of variables declaration//GEN-END:variables
 
-    
-    
     
 }
