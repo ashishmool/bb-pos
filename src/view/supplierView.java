@@ -5,15 +5,16 @@
  */
 package view;
 
-import database.myConnection;
-import java.awt.HeadlessException;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-//import java.util.HashMap;
-import java.util.Vector;
-import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
+import controller.*;
+
+import java.awt.*;
+
+import java.util.*;
+import javax.swing.*;
+import javax.swing.table.*;
+import model.*;
+import java.awt.print.PrinterException;
+import java.text.MessageFormat;
 
 /**
  *
@@ -22,127 +23,68 @@ import javax.swing.table.DefaultTableModel;
 public class supplierView extends javax.swing.JPanel {
 
     /**
-     * Creates new form customer
+     * Creates new form supplier
      */
     
-    
-    
-    public static void main(String[] args) {
-        supplierView myFrame = new supplierView();
-    }
+
     
     public supplierView() {
         
         initComponents();
-        tb_load();
-        
+        loadData();
 
     }
 
-  public void tb_load(){
-  
-  
-      try {
-          
-          DefaultTableModel dt = (DefaultTableModel) jTable1.getModel();
-          dt.setRowCount(0);
-          
-          Statement s = myConnection.myDatabase().createStatement();
-          ResultSet rs = s.executeQuery(" SELECT * FROM supplier");
-          
-          while (rs.next()) {              
-              
-              Vector v = new Vector();
-              
-//              v.add(rs.getString(0));
-              v.add(rs.getString(1));
-              v.add(rs.getString(2));
-              v.add(rs.getString(3));
-              v.add(rs.getString(4));
-              v.add(rs.getString(5));
-              v.add(rs.getString(6));
-              v.add(rs.getString(7));
-              v.add(rs.getString(8));
-              v.add(rs.getString(9));
-              v.add(rs.getString(10));
-              v.add(rs.getString(11));
-              
-              dt.addRow(v);
-                          
-          }
-          
-      } catch (SQLException e) {
-          System.out.println(e);
-      }
-  
-  } 
+    public void loadData(){
+        
+        ArrayList<supplierModel> allSupplier = supplierController.getAllSuppliers();
+        
+        DefaultTableModel dtm = (DefaultTableModel) tblSupplier.getModel();
+        dtm.setRowCount(0);
+        
+        for (supplierModel supplier : allSupplier){
+                Object[] rowData = {supplier.getSupplier_id(),
+                supplier.getSupplier_name(),
+                supplier.getSupplier_vatpan(),
+                supplier.getSupplier_address(),
+                supplier.getSupplier_city(),
+                supplier.getSupplier_email(),
+                supplier.getSupplier_cname(),
+                supplier.getSupplier_cdesig(),
+                supplier.getSupplier_cppan(),
+                supplier.getSupplier_cemail(),
+                supplier.getSupplier_cmob()};
+                dtm.addRow(rowData);
+        }
+    }
     
- public void serch(){
- 
-     String city = sh_city.getText();
-     String mob = sh_mob.getText();
-     String contact_person = sh_cp.getText();
-     String sup_name = sh_name.getText();
-     
-     
-     try {
-         
-         DefaultTableModel dtm = (DefaultTableModel) jTable1.getModel();
-         dtm.setRowCount(0);
-         
-         Statement s = myConnection.myDatabase().createStatement();
-         ResultSet rs = s.executeQuery(" SELECT * FROM supplier WHERE city LIKE  '%"+ city +"%' AND scon_mob LIKE '%"+ mob +"%' AND scon_name LIKE '%"+contact_person+"%' AND s_cname LIKE '%"+sup_name+"%' ");
-         
-        // You can Use OR or AND
-         
-          while (rs.next()) {              
-              
-              Vector v = new Vector();
-              
-              v.add(rs.getString(1));
-              v.add(rs.getString(2));
-              v.add(rs.getString(3));
-              v.add(rs.getString(4));
-              v.add(rs.getString(5));
-              v.add(rs.getString(6));
-              v.add(rs.getString(7));
-              v.add(rs.getString(8));
-              v.add(rs.getString(9));
-              v.add(rs.getString(10));
-              v.add(rs.getString(11));
-              
-              dtm.addRow(v);
-          }
-         
-         
-     } catch (Exception e) {
-         
-         System.out.println(e);
-     }
-  
-     
-     
-     
- 
- }   
+    public void specificloadData(String searchRow){
+        
+        ArrayList<supplierModel> specificSupplier = supplierController.getAllSuppliers();
+        
+        DefaultTableModel dtm = (DefaultTableModel) tblSupplier.getModel();
+        TableRowSorter<DefaultTableModel> trs = new TableRowSorter<>(dtm);
+        
+        tblSupplier.setRowSorter(trs);
+        trs.setRowFilter(RowFilter.regexFilter(searchRow));
+
+    }
     
  public void clearText(){
  
-    c_name.setText("");
-    c_pan.setText("");
-    c_supadd.setText("");
-    c_email.setText("");
-    c_city.setText("");
-    cp_name.setText("");
-    c_des.setText("");
-    cp_ppan.setText("");
-    cp_email.setText("");
-    cp_mob.setText("");
- 
- 
- 
+    txtCompanyname.setText("");
+    txtVatpan.setText("");
+    txtSupadd.setText("");
+    txtSupcity.setText("");
+    txtSupemail.setText("");
+    txtCname.setText("");
+    txtCdesig.setText("");
+    txtCppan.setText("");
+    txtCemail.setText("");
+    txtCmob.setText("");
  
  }
+ 
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -153,51 +95,46 @@ public class supplierView extends javax.swing.JPanel {
         jPanel6 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        c_search = new javax.swing.JTextField();
+        txtSupplierid = new javax.swing.JTextField();
+        btnClear = new javax.swing.JButton();
+        btnSearch1 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        c_name = new javax.swing.JTextField();
-        c_pan = new javax.swing.JTextField();
+        txtCompanyname = new javax.swing.JTextField();
+        txtVatpan = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jPanel8 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
-        c_des = new javax.swing.JTextField();
-        cp_name = new javax.swing.JTextField();
+        txtCdesig = new javax.swing.JTextField();
+        txtCname = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
-        cp_ppan = new javax.swing.JTextField();
+        txtCppan = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
-        cp_email = new javax.swing.JTextField();
-        cp_mob = new javax.swing.JTextField();
+        txtCemail = new javax.swing.JTextField();
+        txtCmob = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        c_email = new javax.swing.JTextField();
-        c_city = new javax.swing.JTextField();
+        txtSupcity = new javax.swing.JTextField();
+        txtSupemail = new javax.swing.JTextField();
         jPanel9 = new javax.swing.JPanel();
-        btnDelete = new javax.swing.JButton();
-        btnUpdate = new javax.swing.JButton();
-        btnSearch = new javax.swing.JButton();
         btnSave = new javax.swing.JButton();
+        btnUpdate = new javax.swing.JButton();
+        btnDelete = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        c_supadd = new javax.swing.JTextArea();
+        txtSupadd = new javax.swing.JTextArea();
         jPanel4 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblSupplier = new javax.swing.JTable();
         jPanel7 = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
-        c_search_tbl = new javax.swing.JTextField();
         jPanel10 = new javax.swing.JPanel();
-        jLabel16 = new javax.swing.JLabel();
-        sh_city = new javax.swing.JTextField();
-        jLabel17 = new javax.swing.JLabel();
-        sh_mob = new javax.swing.JTextField();
-        jLabel18 = new javax.swing.JLabel();
-        sh_cp = new javax.swing.JTextField();
-        jLabel19 = new javax.swing.JLabel();
-        sh_name = new javax.swing.JTextField();
+        txtSearchbyid = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        lblNote = new javax.swing.JLabel();
+        btnPrint = new javax.swing.JButton();
         jPanel11 = new javax.swing.JPanel();
         jButton5 = new javax.swing.JButton();
         cid = new javax.swing.JTextField();
@@ -207,10 +144,27 @@ public class supplierView extends javax.swing.JPanel {
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel3.setText("Search ID :");
+        jLabel3.setText("Supplier ID:");
 
-        c_search.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        c_search.setText("0");
+        txtSupplierid.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        txtSupplierid.setText("0");
+
+        btnClear.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        btnClear.setText("Clear Form");
+        btnClear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClearActionPerformed(evt);
+            }
+        });
+
+        btnSearch1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        btnSearch1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/search x30.png"))); // NOI18N
+        btnSearch1.setText("Search");
+        btnSearch1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSearch1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -220,16 +174,25 @@ public class supplierView extends javax.swing.JPanel {
                 .addGap(23, 23, 23)
                 .addComponent(jLabel3)
                 .addGap(30, 30, 30)
-                .addComponent(c_search, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtSupplierid, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(32, 32, 32)
+                .addComponent(btnSearch1, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+            .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(c_search)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnSearch1)
+                            .addComponent(btnClear))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(txtSupplierid, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -241,9 +204,9 @@ public class supplierView extends javax.swing.JPanel {
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setText("VAT/PAN No. :");
 
-        c_name.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        txtCompanyname.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
 
-        c_pan.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        txtVatpan.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel6.setText("Supplier Address :");
@@ -253,9 +216,9 @@ public class supplierView extends javax.swing.JPanel {
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel9.setText("Designation :");
 
-        c_des.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        txtCdesig.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
 
-        cp_name.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        txtCname.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel8.setText("Name :");
@@ -263,14 +226,14 @@ public class supplierView extends javax.swing.JPanel {
         jLabel12.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel12.setText("PPAN No. :");
 
-        cp_ppan.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        txtCppan.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
 
         jLabel13.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel13.setText("Email :");
 
-        cp_email.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        txtCemail.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
 
-        cp_mob.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        txtCmob.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
 
         jLabel14.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel14.setText("Mobile :");
@@ -292,12 +255,12 @@ public class supplierView extends javax.swing.JPanel {
                 .addGap(24, 24, 24)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(c_des)
-                        .addComponent(cp_name, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtCdesig)
+                        .addComponent(txtCname, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(cp_ppan, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(cp_email, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(cp_mob, javax.swing.GroupLayout.Alignment.LEADING)))
+                        .addComponent(txtCppan, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(txtCemail, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(txtCmob, javax.swing.GroupLayout.Alignment.LEADING)))
                 .addGap(24, 24, 24))
         );
         jPanel8Layout.setVerticalGroup(
@@ -305,24 +268,24 @@ public class supplierView extends javax.swing.JPanel {
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addGap(54, 54, 54)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cp_name, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCname, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
-                    .addComponent(c_des, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtCdesig, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(cp_ppan)
+                    .addComponent(txtCppan)
                     .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cp_email, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCemail, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel14)
-                    .addComponent(cp_mob, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtCmob, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(133, 133, 133))
         );
 
@@ -332,21 +295,21 @@ public class supplierView extends javax.swing.JPanel {
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel11.setText("Email :");
 
-        c_email.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        c_email.addActionListener(new java.awt.event.ActionListener() {
+        txtSupcity.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        txtSupcity.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                c_emailActionPerformed(evt);
+                txtSupcityActionPerformed(evt);
             }
         });
 
-        c_city.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        txtSupemail.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
 
-        btnDelete.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        btnDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/delete.png"))); // NOI18N
-        btnDelete.setText("Delete");
-        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+        btnSave.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        btnSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/save.png"))); // NOI18N
+        btnSave.setText("Add");
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDeleteActionPerformed(evt);
+                btnSaveActionPerformed(evt);
             }
         });
 
@@ -359,21 +322,12 @@ public class supplierView extends javax.swing.JPanel {
             }
         });
 
-        btnSearch.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        btnSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/search x30.png"))); // NOI18N
-        btnSearch.setText("Search");
-        btnSearch.addActionListener(new java.awt.event.ActionListener() {
+        btnDelete.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        btnDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/delete.png"))); // NOI18N
+        btnDelete.setText("Delete");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSearchActionPerformed(evt);
-            }
-        });
-
-        btnSave.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        btnSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/save.png"))); // NOI18N
-        btnSave.setText("Save");
-        btnSave.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSaveActionPerformed(evt);
+                btnDeleteActionPerformed(evt);
             }
         });
 
@@ -382,31 +336,28 @@ public class supplierView extends javax.swing.JPanel {
         jPanel9Layout.setHorizontalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel9Layout.createSequentialGroup()
-                .addGap(88, 88, 88)
-                .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29)
-                .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28)
-                .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnSave, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE)
-                    .addComponent(btnSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnUpdate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(25, 25, 25))
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE, false)
+                    .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
-        c_supadd.setColumns(20);
-        c_supadd.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jScrollPane2.setViewportView(c_supadd);
+        txtSupadd.setColumns(20);
+        txtSupadd.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jScrollPane2.setViewportView(txtSupadd);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -422,11 +373,11 @@ public class supplierView extends javax.swing.JPanel {
                                     .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addComponent(jLabel11)
                                         .addGap(18, 18, 18)
-                                        .addComponent(c_city, javax.swing.GroupLayout.PREFERRED_SIZE, 382, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(txtSupemail, javax.swing.GroupLayout.PREFERRED_SIZE, 382, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addComponent(jLabel10)
                                         .addGap(18, 18, 18)
-                                        .addComponent(c_email, javax.swing.GroupLayout.PREFERRED_SIZE, 382, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(txtSupcity, javax.swing.GroupLayout.PREFERRED_SIZE, 382, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addComponent(jLabel6)
                                         .addGap(18, 18, 18)
@@ -438,12 +389,12 @@ public class supplierView extends javax.swing.JPanel {
                                         .addGap(0, 0, Short.MAX_VALUE)
                                         .addComponent(jLabel1)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(c_name, javax.swing.GroupLayout.PREFERRED_SIZE, 382, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(txtCompanyname, javax.swing.GroupLayout.PREFERRED_SIZE, 382, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(jLabel2)
                                         .addGap(18, 18, 18)
-                                        .addComponent(c_pan, javax.swing.GroupLayout.PREFERRED_SIZE, 382, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(txtVatpan, javax.swing.GroupLayout.PREFERRED_SIZE, 382, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(35, 35, 35)))
                         .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -456,11 +407,11 @@ public class supplierView extends javax.swing.JPanel {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(c_name, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtCompanyname, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(c_pan, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtVatpan, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
@@ -471,11 +422,11 @@ public class supplierView extends javax.swing.JPanel {
                                 .addComponent(jLabel6)))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(c_email, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtSupcity, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel10))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(c_city, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtSupemail, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel11))
                         .addGap(17, 17, 17))
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -518,7 +469,7 @@ public class supplierView extends javax.swing.JPanel {
             .addGap(0, 100, Short.MAX_VALUE)
         );
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblSupplier.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -526,71 +477,36 @@ public class supplierView extends javax.swing.JPanel {
                 "Supplier ID", "Company Name", "VAT/PAN", "Supplier Address", "City", "Email", "Contact Person", "Designation", "PPAN", "Email", "Mobile Number"
             }
         ));
-        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+        tblSupplier.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTable1MouseClicked(evt);
+                tblSupplierMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblSupplier);
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel5.setText("Supplier ID :");
-
-        c_search_tbl.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        c_search_tbl.setText("0");
-        c_search_tbl.addActionListener(new java.awt.event.ActionListener() {
+        txtSearchbyid.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        txtSearchbyid.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                c_search_tblActionPerformed(evt);
+                txtSearchbyidActionPerformed(evt);
             }
         });
-        c_search_tbl.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtSearchbyid.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                c_search_tblKeyReleased(evt);
+                txtSearchbyidKeyReleased(evt);
             }
         });
 
-        jLabel16.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLabel16.setText("City :");
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel5.setText("Search:");
 
-        sh_city.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        sh_city.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                sh_cityKeyReleased(evt);
-            }
-        });
+        lblNote.setText("**Note: Start typing to search using any information.");
 
-        jLabel17.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLabel17.setText("Supplier Name :");
-
-        sh_mob.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        sh_mob.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                sh_mobKeyReleased(evt);
-            }
-        });
-
-        jLabel18.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLabel18.setText("Contact Person :");
-
-        sh_cp.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        sh_cp.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                sh_cpKeyReleased(evt);
-            }
-        });
-
-        jLabel19.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLabel19.setText("Mobile No. :");
-
-        sh_name.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        sh_name.addActionListener(new java.awt.event.ActionListener() {
+        btnPrint.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        btnPrint.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/print.png"))); // NOI18N
+        btnPrint.setText("Print");
+        btnPrint.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                sh_nameActionPerformed(evt);
-            }
-        });
-        sh_name.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                sh_nameKeyReleased(evt);
+                btnPrintActionPerformed(evt);
             }
         });
 
@@ -599,46 +515,28 @@ public class supplierView extends javax.swing.JPanel {
         jPanel10Layout.setHorizontalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel10Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
+                .addGap(42, 42, 42)
+                .addComponent(jLabel5)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(sh_city, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel16))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(sh_mob, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel19))
-                .addGap(29, 29, 29)
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(sh_cp, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel18))
-                .addGap(30, 30, 30)
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(sh_name, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel17))
-                .addGap(87, 87, 87))
+                    .addComponent(lblNote)
+                    .addGroup(jPanel10Layout.createSequentialGroup()
+                        .addComponent(txtSearchbyid, javax.swing.GroupLayout.PREFERRED_SIZE, 503, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(41, 41, 41)
+                        .addComponent(btnPrint, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(221, Short.MAX_VALUE))
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel10Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel10Layout.createSequentialGroup()
-                        .addComponent(jLabel19)
-                        .addGap(42, 42, 42))
-                    .addComponent(sh_mob, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel10Layout.createSequentialGroup()
-                        .addComponent(jLabel17)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(sh_name, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel10Layout.createSequentialGroup()
-                        .addComponent(jLabel18)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(sh_cp, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel10Layout.createSequentialGroup()
-                        .addComponent(jLabel16)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(sh_city, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(txtSearchbyid, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnPrint, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblNote)
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
@@ -646,23 +544,13 @@ public class supplierView extends javax.swing.JPanel {
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jLabel5)
-                .addGap(18, 18, 18)
-                .addComponent(c_search_tbl, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel7Layout.createSequentialGroup()
                 .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 48, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGap(8, 8, 8)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(c_search_tbl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(14, 14, 14)
                 .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -771,82 +659,13 @@ public class supplierView extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void c_search_tblKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_c_search_tblKeyReleased
-
-        String name = c_search_tbl.getText();
-        try {
-
-            DefaultTableModel dt = (DefaultTableModel) jTable1.getModel();
-            dt.setRowCount(0);
-            Statement s = myConnection.myDatabase().createStatement();
-
-            ResultSet rs = s.executeQuery("SELECT * FROM supplier WHERE s_id LIKE '%"+name+"%' ");
-
-            while (rs.next()) {
-                Vector v = new Vector();
-
-                v.add(rs.getString(1));
-                v.add(rs.getString(2));
-                v.add(rs.getString(3));
-                v.add(rs.getString(4));
-                v.add(rs.getString(5));
-                v.add(rs.getString(6));
-                v.add(rs.getString(7));
-                v.add(rs.getString(8));
-                v.add(rs.getString(9));
-                v.add(rs.getString(10));
-                v.add(rs.getString(11));
-//                v.add(rs.getString(12));
-                
-
-                dt.addRow(v);
-
-            }
-
-        } catch (Exception e) {
-            tb_load();
-
-        }
-
-    }//GEN-LAST:event_c_search_tblKeyReleased
-
-    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+    private void tblSupplierMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSupplierMouseClicked
         // mouse clk & get data to textfeld
 
-        int r = jTable1.getSelectedRow();
-
-        String id = jTable1.getValueAt(r, 0).toString();
-        String name = jTable1.getValueAt(r, 1).toString();
-        String tp = jTable1.getValueAt(r, 2).toString();
-
-        c_search.setText(id);
-        c_name.setText(name);
-        c_pan.setText(tp);
-
-    }//GEN-LAST:event_jTable1MouseClicked
-
-    private void c_search_tblActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_c_search_tblActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_c_search_tblActionPerformed
-
-    private void sh_cityKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_sh_cityKeyReleased
-      serch();  
-    }//GEN-LAST:event_sh_cityKeyReleased
-
-    private void sh_mobKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_sh_mobKeyReleased
-       serch(); 
-    }//GEN-LAST:event_sh_mobKeyReleased
-
-    private void sh_cpKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_sh_cpKeyReleased
-        serch();
-    }//GEN-LAST:event_sh_cpKeyReleased
-
-    private void sh_nameKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_sh_nameKeyReleased
-        serch();
-    }//GEN-LAST:event_sh_nameKeyReleased
+    }//GEN-LAST:event_tblSupplierMouseClicked
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // Open All Customers
+        // Open All Suppliers
         
         reportView r = new reportView("src\\reports\\Allsupplier.jasper");
         r.setVisible(true);
@@ -854,7 +673,7 @@ public class supplierView extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // serch customer for id
+        // serch supplier for id
         
 //        HashMap para = new HashMap();
 //        para.put("Para_sid", cid.getText());
@@ -866,155 +685,142 @@ public class supplierView extends javax.swing.JPanel {
         
     }//GEN-LAST:event_jButton6ActionPerformed
 
+    private void txtSupcityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSupcityActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtSupcityActionPerformed
+
+    private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
+        // TODO add your handling code here:
+        clearText();
+    }//GEN-LAST:event_btnClearActionPerformed
+
+    private void btnSearch1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearch1ActionPerformed
+        // search btn code
+
+        supplierModel supplier = supplierController.searchSupplier(txtSupplierid.getText());
+        if (supplier != null){
+            txtCompanyname.setText(supplier.getSupplier_name());
+            txtVatpan.setText(supplier.getSupplier_vatpan());
+            txtSupadd.setText(supplier.getSupplier_address());
+            txtSupcity.setText(supplier.getSupplier_city());
+            txtSupemail.setText(supplier.getSupplier_email());
+            txtCname.setText(supplier.getSupplier_cname());
+            txtCdesig.setText(supplier.getSupplier_cdesig());
+            txtCppan.setText(supplier.getSupplier_cppan());
+            txtCemail.setText(supplier.getSupplier_cemail());
+            txtCmob.setText(supplier.getSupplier_cmob());
+        }else{
+            txtCompanyname.setText("");
+            txtVatpan.setText("");
+            txtSupadd.setText("");
+            txtSupcity.setText("");
+            txtSupemail.setText("");
+            txtCname.setText("");
+            txtCdesig.setText("");
+            txtCppan.setText("");
+            txtCemail.setText("");
+            txtCmob.setText("");
+            JOptionPane.showMessageDialog(this, "Error! Supplier could not be found in Database!");
+            txtSupplierid.requestFocusInWindow();
+        }
+    }//GEN-LAST:event_btnSearch1ActionPerformed
+
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
 
-        String name = c_name.getText();
-        String vat = c_pan.getText();
+        supplierModel supplier = new supplierModel(txtSupplierid.getText(),
+            txtCompanyname.getText(),
+            txtVatpan.getText(),
+            txtSupadd.getText(),
+            txtSupcity.getText(),
+            txtSupemail.getText(),
+            txtCname.getText(),
+            txtCdesig.getText(),
+            txtCppan.getText(),
+            txtCemail.getText(),
+            txtCmob.getText());
+        boolean result = supplierController.addSupplier(supplier);
 
-        String sup_add = c_supadd.getText();
-        String city = c_city.getText();
-        String email = c_email.getText();
-        String scon_name = cp_name.getText();
-        String scon_des = c_des.getText();
-        String sppan = cp_ppan.getText();
-        String scon_email = cp_email.getText();
-        String scon_mob = cp_mob.getText();
-    
-
-        try {
-
-            Statement s = myConnection.myDatabase().createStatement();
-            s.executeUpdate(" INSERT INTO supplier (s_cname,vat_pan,sup_add,city,email,scon_name,scon_des,sppan,scon_email,scon_mob) "
-                + "VALUES ('"+name+"','"+vat+"','"+sup_add+"','"+city+"','"+email+"','"+scon_name+"','"+scon_des+"','"+sppan+"','"+scon_email+"','"+scon_mob+"')");
-
-            JOptionPane.showMessageDialog(null, "Data Saved");
-
-        } catch (SQLException e) {
-
-            System.out.println(e);
-
+        if (result){
+            JOptionPane.showMessageDialog(this, "Supplier Added Successfully!");
+            clearText();
+            loadData();
         }
-
-        tb_load();
-        clearText();
+        else{
+            JOptionPane.showMessageDialog(this, "Error! Supplier could not be added...");
+        }
     }//GEN-LAST:event_btnSaveActionPerformed
-
-    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-        // search btn code
-        String search = c_search.getText();
-        try {
-
-            Statement s = myConnection.myDatabase().createStatement();
-
-            ResultSet rs = s.executeQuery(" SELECT * FROM supplier WHERE s_id = '"+search+"'");
-
-            if (rs.next()) {
-
-                c_name.setText(rs.getString("s_cname"));
-                c_pan.setText(rs.getString("vat_pan"));
-                c_supadd.setText(rs.getString("sup_add"));
-                c_email.setText(rs.getString("city"));
-                c_city.setText(rs.getString("email"));
-
-                cp_name.setText(rs.getString("scon_name"));
-                c_des.setText(rs.getString("scon_des"));
-                cp_ppan.setText(rs.getString("sppan"));
-                cp_email.setText(rs.getString("scon_email"));
-                cp_mob.setText(rs.getString("scon_mob"));
-
-            }
-
-        } catch (SQLException e) {
-            System.out.println(e);
-        }
-    }//GEN-LAST:event_btnSearchActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         // update btn code
 
-        String id = c_search.getText();
+        supplierModel supplier = new supplierModel(txtSupplierid.getText(),
+            txtCompanyname.getText(),
+            txtVatpan.getText(),
+            txtSupadd.getText(),
+            txtSupcity.getText(),
+            txtSupemail.getText(),
+            txtCname.getText(),
+            txtCdesig.getText(),
+            txtCppan.getText(),
+            txtCemail.getText(),
+            txtCmob.getText());
 
-        String name = c_name.getText();
-        String tp = c_pan.getText();
+        boolean result = supplierController.updateSupplier(supplier);
 
-        String bill_add = c_supadd.getText();
-        String bank = c_email.getText();
-        String city = c_city.getText();
-        String person_name = cp_name.getText();
-        String contact_person = c_des.getText();
-        String person_tp = cp_ppan.getText();
-        String email = cp_email.getText();
-        String online = cp_mob.getText();
-
-        try {
-
-            Statement s = myConnection.myDatabase().createStatement();
-            s.executeUpdate(" UPDATE supplier SET s_cname ='"+name+"'"
-                + " ,vat_pan ='"+tp+"'"
-                + ",sup_add ='"+ bill_add +"'"
-                + ",city ='"+ bank +"' "
-                + ",email ='"+ city +"' "
-                + ",scon_name ='"+ person_name +"' "
-                + ",scon_des ='"+ contact_person +"' "
-                + ",sppan ='"+ person_tp +"' "
-                + ",scon_email ='"+ email +"' "
-                + ",scon_mob ='"+ online +"' "
-                + " WHERE s_id = '"+id+"' ");
-            JOptionPane.showMessageDialog(null, "Data Updated");
-
-        } catch (HeadlessException | SQLException e) {
-            System.out.println(e);
+        if (result) {
+            JOptionPane.showMessageDialog(this, "Supplier Updated Sucessfully");
+            clearText();
+            loadData();
+        } else {
+            JOptionPane.showMessageDialog(this, "Error! Supplier could not be updated...");
         }
-
-        tb_load();
-        clearText();
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         //delete btn code
 
-        String id = c_search.getText();
-        try {
 
-            Statement s = myConnection.myDatabase().createStatement();
-            s.executeUpdate("DELETE FROM supplier WHERE s_id = '"+id+"'");
-            JOptionPane.showMessageDialog(null, "Dtata Deleted");
-
-        } catch (SQLException e) {
-            System.out.println(e);
-        }
-
-        tb_load();
-        clearText();
     }//GEN-LAST:event_btnDeleteActionPerformed
 
-    private void c_emailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_c_emailActionPerformed
+    private void txtSearchbyidActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearchbyidActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_c_emailActionPerformed
+    }//GEN-LAST:event_txtSearchbyidActionPerformed
 
-    private void sh_nameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sh_nameActionPerformed
+    private void txtSearchbyidKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchbyidKeyReleased
+
+        String search = txtSearchbyid.getText();
+        if (search==null){
+            loadData();
+        }
+        else{
+            specificloadData(search);
+        }
+
+    }//GEN-LAST:event_txtSearchbyidKeyReleased
+
+    private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_sh_nameActionPerformed
+        MessageFormat header = new MessageFormat("::: All Suppliers :::");
+        MessageFormat footer = new MessageFormat("Bhat-Bhateni POS Management System");
+        try{
+            tblSupplier.print(JTable.PrintMode.FIT_WIDTH, header, footer);
+
+        }
+        catch (PrinterException e){
+            JOptionPane.showMessageDialog(null,"Error! Cannot Print"+e.getMessage());
+
+        }
+    }//GEN-LAST:event_btnPrintActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnClear;
     private javax.swing.JButton btnDelete;
+    private javax.swing.JButton btnPrint;
     private javax.swing.JButton btnSave;
-    private javax.swing.JButton btnSearch;
+    private javax.swing.JButton btnSearch1;
     private javax.swing.JButton btnUpdate;
-    private javax.swing.JTextField c_city;
-    private javax.swing.JTextField c_des;
-    private javax.swing.JTextField c_email;
-    private javax.swing.JTextField c_name;
-    private javax.swing.JTextField c_pan;
-    private javax.swing.JTextField c_search;
-    private javax.swing.JTextField c_search_tbl;
-    private javax.swing.JTextArea c_supadd;
     private javax.swing.JTextField cid;
-    private javax.swing.JTextField cp_email;
-    private javax.swing.JTextField cp_mob;
-    private javax.swing.JTextField cp_name;
-    private javax.swing.JTextField cp_ppan;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
@@ -1023,10 +829,6 @@ public class supplierView extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -1048,10 +850,19 @@ public class supplierView extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField sh_city;
-    private javax.swing.JTextField sh_cp;
-    private javax.swing.JTextField sh_mob;
-    private javax.swing.JTextField sh_name;
+    private javax.swing.JLabel lblNote;
+    private javax.swing.JTable tblSupplier;
+    private javax.swing.JTextField txtCdesig;
+    private javax.swing.JTextField txtCemail;
+    private javax.swing.JTextField txtCmob;
+    private javax.swing.JTextField txtCname;
+    private javax.swing.JTextField txtCompanyname;
+    private javax.swing.JTextField txtCppan;
+    private javax.swing.JTextField txtSearchbyid;
+    private javax.swing.JTextArea txtSupadd;
+    private javax.swing.JTextField txtSupcity;
+    private javax.swing.JTextField txtSupemail;
+    private javax.swing.JTextField txtSupplierid;
+    private javax.swing.JTextField txtVatpan;
     // End of variables declaration//GEN-END:variables
 }

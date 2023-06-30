@@ -102,18 +102,29 @@
                               <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
                               <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-                              <Component id="c_search" min="-2" pref="254" max="-2" attributes="0"/>
+                              <Component id="txtSupplierid" min="-2" pref="254" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                              <Component id="btnSearch1" min="-2" pref="203" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="btnClear" min="-2" pref="213" max="-2" attributes="0"/>
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="1" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="c_search" max="32767" attributes="0"/>
-                                  <Component id="jLabel3" pref="42" max="32767" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="btnSearch1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="btnClear" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  </Group>
+                                  <Component id="txtSupplierid" alignment="1" max="32767" attributes="0"/>
+                                  <Component id="jLabel3" alignment="1" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
@@ -126,16 +137,41 @@
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Tahoma" size="14" style="1"/>
                         </Property>
-                        <Property name="text" type="java.lang.String" value="Search ID :"/>
+                        <Property name="text" type="java.lang.String" value="Supplier ID:"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JTextField" name="c_search">
+                    <Component class="javax.swing.JTextField" name="txtSupplierid">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Tahoma" size="14" style="1"/>
                         </Property>
                         <Property name="text" type="java.lang.String" value="0"/>
                       </Properties>
+                    </Component>
+                    <Component class="javax.swing.JButton" name="btnClear">
+                      <Properties>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                          <Font name="Segoe UI" size="24" style="1"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="Clear Form"/>
+                      </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnClearActionPerformed"/>
+                      </Events>
+                    </Component>
+                    <Component class="javax.swing.JButton" name="btnSearch1">
+                      <Properties>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                          <Font name="Tahoma" size="24" style="1"/>
+                        </Property>
+                        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                          <Image iconType="3" name="/view/img/search x30.png"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="Search"/>
+                      </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSearch1ActionPerformed"/>
+                      </Events>
                     </Component>
                   </SubComponents>
                 </Container>
@@ -161,12 +197,12 @@
                                                   <Group type="102" alignment="1" attributes="0">
                                                       <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
                                                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                                                      <Component id="c_city" min="-2" pref="382" max="-2" attributes="0"/>
+                                                      <Component id="txtSupemail" min="-2" pref="382" max="-2" attributes="0"/>
                                                   </Group>
                                                   <Group type="102" alignment="1" attributes="0">
                                                       <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
                                                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                                                      <Component id="c_email" min="-2" pref="382" max="-2" attributes="0"/>
+                                                      <Component id="txtSupcity" min="-2" pref="382" max="-2" attributes="0"/>
                                                   </Group>
                                                   <Group type="102" alignment="1" attributes="0">
                                                       <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
@@ -182,13 +218,13 @@
                                                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                                       <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                                      <Component id="c_name" min="-2" pref="382" max="-2" attributes="0"/>
+                                                      <Component id="txtCompanyname" min="-2" pref="382" max="-2" attributes="0"/>
                                                   </Group>
                                                   <Group type="102" attributes="0">
                                                       <EmptySpace max="32767" attributes="0"/>
                                                       <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                                                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                                                      <Component id="c_pan" min="-2" pref="382" max="-2" attributes="0"/>
+                                                      <Component id="txtVatpan" min="-2" pref="382" max="-2" attributes="0"/>
                                                   </Group>
                                               </Group>
                                               <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
@@ -209,12 +245,12 @@
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="1" attributes="0">
                                       <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="c_name" alignment="3" min="-2" pref="41" max="-2" attributes="0"/>
+                                          <Component id="txtCompanyname" alignment="3" min="-2" pref="41" max="-2" attributes="0"/>
                                           <Component id="jLabel1" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="c_pan" alignment="3" min="-2" pref="41" max="-2" attributes="0"/>
+                                          <Component id="txtVatpan" alignment="3" min="-2" pref="41" max="-2" attributes="0"/>
                                           <Component id="jLabel2" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="103" groupAlignment="0" attributes="0">
@@ -229,12 +265,12 @@
                                       </Group>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="c_email" alignment="3" min="-2" pref="38" max="-2" attributes="0"/>
+                                          <Component id="txtSupcity" alignment="3" min="-2" pref="38" max="-2" attributes="0"/>
                                           <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="c_city" alignment="3" min="-2" pref="41" max="-2" attributes="0"/>
+                                          <Component id="txtSupemail" alignment="3" min="-2" pref="41" max="-2" attributes="0"/>
                                           <Component id="jLabel11" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
@@ -266,14 +302,14 @@
                         <Property name="text" type="java.lang.String" value="VAT/PAN No. :"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JTextField" name="c_name">
+                    <Component class="javax.swing.JTextField" name="txtCompanyname">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Tahoma" size="14" style="1"/>
                         </Property>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JTextField" name="c_pan">
+                    <Component class="javax.swing.JTextField" name="txtVatpan">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Tahoma" size="14" style="1"/>
@@ -316,13 +352,13 @@
                                   <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="c_des" max="32767" attributes="0"/>
-                                          <Component id="cp_name" min="-2" pref="377" max="-2" attributes="0"/>
+                                          <Component id="txtCdesig" max="32767" attributes="0"/>
+                                          <Component id="txtCname" min="-2" pref="377" max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="103" alignment="1" groupAlignment="1" attributes="0">
-                                          <Component id="cp_ppan" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="cp_email" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="cp_mob" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="txtCppan" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="txtCemail" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="txtCmob" alignment="0" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
@@ -334,28 +370,28 @@
                               <Group type="102" attributes="0">
                                   <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="cp_name" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                                      <Component id="txtCname" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                                       <Component id="jLabel8" alignment="3" max="32767" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="c_des" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
+                                      <Component id="txtCdesig" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="cp_ppan" max="32767" attributes="0"/>
+                                      <Component id="txtCppan" max="32767" attributes="0"/>
                                       <Component id="jLabel12" min="-2" pref="33" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="cp_email" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                                      <Component id="txtCemail" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                                       <Component id="jLabel13" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="32767" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="jLabel14" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="cp_mob" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
+                                      <Component id="txtCmob" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace min="-2" pref="133" max="-2" attributes="0"/>
                               </Group>
@@ -371,14 +407,14 @@
                             <Property name="text" type="java.lang.String" value="Designation :"/>
                           </Properties>
                         </Component>
-                        <Component class="javax.swing.JTextField" name="c_des">
+                        <Component class="javax.swing.JTextField" name="txtCdesig">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="Tahoma" size="14" style="1"/>
                             </Property>
                           </Properties>
                         </Component>
-                        <Component class="javax.swing.JTextField" name="cp_name">
+                        <Component class="javax.swing.JTextField" name="txtCname">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="Tahoma" size="14" style="1"/>
@@ -401,7 +437,7 @@
                             <Property name="text" type="java.lang.String" value="PPAN No. :"/>
                           </Properties>
                         </Component>
-                        <Component class="javax.swing.JTextField" name="cp_ppan">
+                        <Component class="javax.swing.JTextField" name="txtCppan">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="Tahoma" size="14" style="1"/>
@@ -416,14 +452,14 @@
                             <Property name="text" type="java.lang.String" value="Email :"/>
                           </Properties>
                         </Component>
-                        <Component class="javax.swing.JTextField" name="cp_email">
+                        <Component class="javax.swing.JTextField" name="txtCemail">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="Tahoma" size="14" style="1"/>
                             </Property>
                           </Properties>
                         </Component>
-                        <Component class="javax.swing.JTextField" name="cp_mob">
+                        <Component class="javax.swing.JTextField" name="txtCmob">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="Tahoma" size="14" style="1"/>
@@ -456,17 +492,17 @@
                         <Property name="text" type="java.lang.String" value="Email :"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JTextField" name="c_email">
+                    <Component class="javax.swing.JTextField" name="txtSupcity">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Tahoma" size="14" style="1"/>
                         </Property>
                       </Properties>
                       <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="c_emailActionPerformed"/>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtSupcityActionPerformed"/>
                       </Events>
                     </Component>
-                    <Component class="javax.swing.JTextField" name="c_city">
+                    <Component class="javax.swing.JTextField" name="txtSupemail">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Tahoma" size="14" style="1"/>
@@ -479,46 +515,43 @@
                         <DimensionLayout dim="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="88" max="-2" attributes="0"/>
-                                  <Component id="btnSave" min="-2" pref="188" max="-2" attributes="0"/>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="btnSearch" min="-2" pref="203" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
-                                  <Component id="btnUpdate" min="-2" pref="202" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-                                  <Component id="btnDelete" min="-2" pref="210" max="-2" attributes="0"/>
+                                  <Component id="btnSave" min="-2" pref="172" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="btnUpdate" min="-2" pref="172" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="btnDelete" min="-2" pref="172" max="-2" attributes="0"/>
                                   <EmptySpace max="32767" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
                         <DimensionLayout dim="1">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="1" attributes="0">
-                                  <EmptySpace max="32767" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="btnSave" alignment="0" pref="68" max="32767" attributes="0"/>
-                                      <Component id="btnSearch" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="btnUpdate" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="btnDelete" alignment="0" max="32767" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" max="-2" attributes="0">
+                                      <Component id="btnUpdate" alignment="3" min="-2" pref="55" max="-2" attributes="0"/>
+                                      <Component id="btnSave" alignment="3" min="-2" pref="55" max="-2" attributes="0"/>
+                                      <Component id="btnDelete" alignment="3" min="-2" pref="55" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
+                                  <EmptySpace pref="18" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
                       </Layout>
                       <SubComponents>
-                        <Component class="javax.swing.JButton" name="btnDelete">
+                        <Component class="javax.swing.JButton" name="btnSave">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="Tahoma" size="24" style="1"/>
                             </Property>
                             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                              <Image iconType="3" name="/view/img/delete.png"/>
+                              <Image iconType="3" name="/view/img/save.png"/>
                             </Property>
-                            <Property name="text" type="java.lang.String" value="Delete"/>
+                            <Property name="text" type="java.lang.String" value="Add"/>
                           </Properties>
                           <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDeleteActionPerformed"/>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSaveActionPerformed"/>
                           </Events>
                         </Component>
                         <Component class="javax.swing.JButton" name="btnUpdate">
@@ -535,32 +568,18 @@
                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnUpdateActionPerformed"/>
                           </Events>
                         </Component>
-                        <Component class="javax.swing.JButton" name="btnSearch">
+                        <Component class="javax.swing.JButton" name="btnDelete">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="Tahoma" size="24" style="1"/>
                             </Property>
                             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                              <Image iconType="3" name="/view/img/search x30.png"/>
+                              <Image iconType="3" name="/view/img/delete.png"/>
                             </Property>
-                            <Property name="text" type="java.lang.String" value="Search"/>
+                            <Property name="text" type="java.lang.String" value="Delete"/>
                           </Properties>
                           <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSearchActionPerformed"/>
-                          </Events>
-                        </Component>
-                        <Component class="javax.swing.JButton" name="btnSave">
-                          <Properties>
-                            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                              <Font name="Tahoma" size="24" style="1"/>
-                            </Property>
-                            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                              <Image iconType="3" name="/view/img/save.png"/>
-                            </Property>
-                            <Property name="text" type="java.lang.String" value="Save"/>
-                          </Properties>
-                          <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSaveActionPerformed"/>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDeleteActionPerformed"/>
                           </Events>
                         </Component>
                       </SubComponents>
@@ -572,7 +591,7 @@
 
                       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                       <SubComponents>
-                        <Component class="javax.swing.JTextArea" name="c_supadd">
+                        <Component class="javax.swing.JTextArea" name="txtSupadd">
                           <Properties>
                             <Property name="columns" type="int" value="20"/>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -652,7 +671,7 @@
 
                   <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                   <SubComponents>
-                    <Component class="javax.swing.JTable" name="jTable1">
+                    <Component class="javax.swing.JTable" name="tblSupplier">
                       <Properties>
                         <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                           <Table columnCount="11" rowCount="0">
@@ -733,7 +752,7 @@
                         </Property>
                       </Properties>
                       <Events>
-                        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTable1MouseClicked"/>
+                        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tblSupplierMouseClicked"/>
                       </Events>
                     </Component>
                   </SubComponents>
@@ -744,13 +763,6 @@
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-                              <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="c_search_tbl" min="-2" pref="222" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
                               <Component id="jPanel10" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="0" pref="48" max="32767" attributes="0"/>
                           </Group>
@@ -759,12 +771,7 @@
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="c_search_tbl" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
                               <Component id="jPanel10" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
                           </Group>
@@ -772,159 +779,80 @@
                     </DimensionLayout>
                   </Layout>
                   <SubComponents>
-                    <Component class="javax.swing.JLabel" name="jLabel5">
-                      <Properties>
-                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                          <Font name="Tahoma" size="14" style="1"/>
-                        </Property>
-                        <Property name="text" type="java.lang.String" value="Supplier ID :"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JTextField" name="c_search_tbl">
-                      <Properties>
-                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                          <Font name="Tahoma" size="18" style="1"/>
-                        </Property>
-                        <Property name="text" type="java.lang.String" value="0"/>
-                      </Properties>
-                      <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="c_search_tblActionPerformed"/>
-                        <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="c_search_tblKeyReleased"/>
-                      </Events>
-                    </Component>
                     <Container class="javax.swing.JPanel" name="jPanel10">
 
                       <Layout>
                         <DimensionLayout dim="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
+                                  <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="sh_city" min="-2" pref="227" max="-2" attributes="0"/>
-                                      <Component id="jLabel16" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lblNote" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="txtSearchbyid" min="-2" pref="503" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
+                                          <Component id="btnPrint" min="-2" pref="183" max="-2" attributes="0"/>
+                                      </Group>
                                   </Group>
-                                  <EmptySpace pref="28" max="32767" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="sh_mob" min="-2" pref="227" max="-2" attributes="0"/>
-                                      <Component id="jLabel19" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="sh_cp" alignment="0" min="-2" pref="227" max="-2" attributes="0"/>
-                                      <Component id="jLabel18" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="sh_name" min="-2" pref="227" max="-2" attributes="0"/>
-                                      <Component id="jLabel17" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace min="-2" pref="87" max="-2" attributes="0"/>
+                                  <EmptySpace pref="221" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
                         <DimensionLayout dim="1">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="1" attributes="0">
-                                      <Group type="102" alignment="1" attributes="0">
-                                          <Component id="jLabel19" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace min="42" pref="42" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Component id="sh_mob" min="-2" pref="36" max="-2" attributes="0"/>
-                                      <Group type="102" attributes="0">
-                                          <Component id="jLabel17" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="sh_name" min="-2" pref="36" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" attributes="0">
-                                          <Component id="jLabel18" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="sh_cp" min="-2" pref="36" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" attributes="0">
-                                          <Component id="jLabel16" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="sh_city" min="-2" pref="36" max="-2" attributes="0"/>
-                                      </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txtSearchbyid" alignment="3" min="-2" pref="52" max="-2" attributes="0"/>
+                                      <Component id="btnPrint" alignment="3" min="-2" pref="52" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace max="32767" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="lblNote" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace pref="24" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
                       </Layout>
                       <SubComponents>
-                        <Component class="javax.swing.JLabel" name="jLabel16">
+                        <Component class="javax.swing.JTextField" name="txtSearchbyid">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                              <Font name="Dialog" size="18" style="1"/>
-                            </Property>
-                            <Property name="text" type="java.lang.String" value="City :"/>
-                          </Properties>
-                        </Component>
-                        <Component class="javax.swing.JTextField" name="sh_city">
-                          <Properties>
-                            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                              <Font name="Dialog" size="18" style="1"/>
+                              <Font name="Tahoma" size="18" style="1"/>
                             </Property>
                           </Properties>
                           <Events>
-                            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="sh_cityKeyReleased"/>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtSearchbyidActionPerformed"/>
+                            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtSearchbyidKeyReleased"/>
                           </Events>
                         </Component>
-                        <Component class="javax.swing.JLabel" name="jLabel17">
+                        <Component class="javax.swing.JLabel" name="jLabel5">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                              <Font name="Dialog" size="18" style="1"/>
+                              <Font name="Tahoma" size="24" style="1"/>
                             </Property>
-                            <Property name="text" type="java.lang.String" value="Supplier Name :"/>
+                            <Property name="text" type="java.lang.String" value="Search:"/>
                           </Properties>
                         </Component>
-                        <Component class="javax.swing.JTextField" name="sh_mob">
+                        <Component class="javax.swing.JLabel" name="lblNote">
+                          <Properties>
+                            <Property name="text" type="java.lang.String" value="**Note: Start typing to search using any information."/>
+                          </Properties>
+                        </Component>
+                        <Component class="javax.swing.JButton" name="btnPrint">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                              <Font name="Dialog" size="18" style="1"/>
+                              <Font name="Segoe UI" size="24" style="1"/>
                             </Property>
+                            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                              <Image iconType="3" name="/view/img/print.png"/>
+                            </Property>
+                            <Property name="text" type="java.lang.String" value="Print"/>
                           </Properties>
                           <Events>
-                            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="sh_mobKeyReleased"/>
-                          </Events>
-                        </Component>
-                        <Component class="javax.swing.JLabel" name="jLabel18">
-                          <Properties>
-                            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                              <Font name="Dialog" size="18" style="1"/>
-                            </Property>
-                            <Property name="text" type="java.lang.String" value="Contact Person :"/>
-                          </Properties>
-                        </Component>
-                        <Component class="javax.swing.JTextField" name="sh_cp">
-                          <Properties>
-                            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                              <Font name="Dialog" size="18" style="1"/>
-                            </Property>
-                          </Properties>
-                          <Events>
-                            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="sh_cpKeyReleased"/>
-                          </Events>
-                        </Component>
-                        <Component class="javax.swing.JLabel" name="jLabel19">
-                          <Properties>
-                            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                              <Font name="Dialog" size="18" style="1"/>
-                            </Property>
-                            <Property name="text" type="java.lang.String" value="Mobile No. :"/>
-                          </Properties>
-                        </Component>
-                        <Component class="javax.swing.JTextField" name="sh_name">
-                          <Properties>
-                            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                              <Font name="Dialog" size="18" style="1"/>
-                            </Property>
-                          </Properties>
-                          <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="sh_nameActionPerformed"/>
-                            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="sh_nameKeyReleased"/>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPrintActionPerformed"/>
                           </Events>
                         </Component>
                       </SubComponents>
