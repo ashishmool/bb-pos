@@ -14,13 +14,14 @@ public class productModel {
     private String unit;
     private int qty;
     private int supplierid;
+    private String searchid;
     
     
-    public productModel(){
+    public productModel(String productid, String name, String barcode, String price,String unit, String qty, String supplierid,String searchid){
         
     }
     
-    public  productModel(int productid,String name,int barcode,int price,String unit,int qty,int supplierid){
+    public  productModel(int productid,String name,int barcode,int price,String unit,int qty,int supplierid,String searchid){
         this.productid=productid;
         this.name=name;
         this.barcode=barcode;
@@ -28,6 +29,7 @@ public class productModel {
         this.unit=unit;
         this.qty=qty;
         this.supplierid=supplierid;
+        this.searchid=searchid;
         
     }
 
@@ -35,7 +37,7 @@ public class productModel {
         return productid;
     }
 
-    public void setSearchid(int productid) {
+    public void setProductid(int productid) {
         this.productid = productid;
     }
 
@@ -53,6 +55,14 @@ public class productModel {
 
     public void setBarcode(int barcode) {
         this.barcode = barcode;
+    }
+
+    public String getSearchid() {
+        return searchid;
+    }
+
+    public void setSearch(String search) {
+        this.searchid = search;
     }
 
     public int getPrice() {
@@ -87,8 +97,10 @@ public class productModel {
         this.supplierid = supplierid;
     }
     
+   
     
-    
+  
+      
     
     
 }
