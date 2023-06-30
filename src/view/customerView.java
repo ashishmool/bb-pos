@@ -538,8 +538,14 @@ public class customerView extends javax.swing.JPanel {
 
     private void txtSearchbyidKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchbyidKeyReleased
        
-        String cust_id = txtSearchbyid.getText();
-        specificloadData(cust_id);
+        String search = txtSearchbyid.getText();
+        if (search==null){
+            loadData();
+        }
+        else{
+            specificloadData(search);
+        }
+        
 
     }//GEN-LAST:event_txtSearchbyidKeyReleased
 
