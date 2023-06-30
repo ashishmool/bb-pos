@@ -4,7 +4,7 @@
  */
 package controller;
 
-import database.myConnection;
+import database.*;
 import model.*;
 import view.*;
 import java.sql.*;
@@ -36,7 +36,7 @@ public class loginController {
                 model=view.getUser();
                 if(checkUser(model))
                 {
-                    view.setMessage("Login Successfully");
+//                    view.setMessage("Login Successfully");
                     dashboardView d=new dashboardView();
                     d.setVisible(true);
                     view.dispose();

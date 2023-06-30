@@ -27,13 +27,19 @@ public class recoverView extends javax.swing.JFrame {
     Statement stmt;
 
     String email_check;
+    String username, pass, re_pass, email, sec_ans;
     
 
     /**
      * Creates new form Login
      */
     public recoverView() {
-        recoverController rc3 = new recoverController(this);
+        
+//        recoverModel rm1 = new recoverModel(username, pass, re_pass, email, sec_ans);
+//        recoverController rc1 = new recoverController(rm1, this);
+//        rc1.initrecoverController();
+        recoverModel rm1 = new recoverModel(username, pass, re_pass, email, sec_ans);
+        recoverController rc3 = new recoverController(rm1,this);
         initComponents();
         this.setLocationRelativeTo(null);
 
@@ -373,7 +379,8 @@ public class recoverView extends javax.swing.JFrame {
         int confirmed = JOptionPane.showConfirmDialog(null, "Update User?","Update",JOptionPane.YES_NO_OPTION);
          if (confirmed == JOptionPane.YES_OPTION)
          {
-             updateUser();
+//             updateUser();
+             recoverController rc4 = new recoverController(this);
              loginView lv4 = new loginView();
              lv4.setVisible(true);
              this.dispose();
@@ -405,7 +412,7 @@ public class recoverView extends javax.swing.JFrame {
         int confirmed = JOptionPane.showConfirmDialog(null, "Delete User?","Delete",JOptionPane.YES_NO_OPTION);
         if (confirmed == JOptionPane.YES_OPTION)
         {
-            deleteUser();
+//            deleteUser();
 //            recoverController.deleteUser();
             loginView lv3 = new loginView();
             lv3.setVisible(true);
@@ -488,6 +495,198 @@ public class recoverView extends javax.swing.JFrame {
     private javax.swing.JTextField txtSecurity;
     private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
+
+    public recoverModel getModel() {
+        return model;
+    }
+
+    public void setModel(recoverModel model) {
+        this.model = model;
+    }
+
+    public recoverController getReccontroller() {
+        return reccontroller;
+    }
+
+    public void setReccontroller(recoverController reccontroller) {
+        this.reccontroller = reccontroller;
+    }
+
+    public ResultSet getRs() {
+        return rs;
+    }
+
+    public void setRs(ResultSet rs) {
+        this.rs = rs;
+    }
+
+    public Statement getStmt() {
+        return stmt;
+    }
+
+    public void setStmt(Statement stmt) {
+        this.stmt = stmt;
+    }
+
+    public String getEmail_check() {
+        return email_check;
+    }
+
+    public void setEmail_check(String email_check) {
+        this.email_check = email_check;
+    }
+
+    public JButton getBtnDeleteAcc() {
+        return btnDeleteAcc;
+    }
+
+    public void setBtnDeleteAcc(JButton btnDeleteAcc) {
+        this.btnDeleteAcc = btnDeleteAcc;
+    }
+
+    public JButton getBtnLogin() {
+        return btnLogin;
+    }
+
+    public void setBtnLogin(JButton btnLogin) {
+        this.btnLogin = btnLogin;
+    }
+
+    public JButton getBtnUpdateUser() {
+        return btnUpdateUser;
+    }
+
+    public void setBtnUpdateUser(JButton btnUpdateUser) {
+        this.btnUpdateUser = btnUpdateUser;
+    }
+
+    public JLabel getLblEmail() {
+        return lblEmail;
+    }
+
+    public void setLblEmail(JLabel lblEmail) {
+        this.lblEmail = lblEmail;
+    }
+
+    public JLabel getLblLogo() {
+        return lblLogo;
+    }
+
+    public void setLblLogo(JLabel lblLogo) {
+        this.lblLogo = lblLogo;
+    }
+
+    public JLabel getLblPassword() {
+        return lblPassword;
+    }
+
+    public void setLblPassword(JLabel lblPassword) {
+        this.lblPassword = lblPassword;
+    }
+
+    public JLabel getLblQuestion() {
+        return lblQuestion;
+    }
+
+    public void setLblQuestion(JLabel lblQuestion) {
+        this.lblQuestion = lblQuestion;
+    }
+
+    public JLabel getLblRePassword() {
+        return lblRePassword;
+    }
+
+    public void setLblRePassword(JLabel lblRePassword) {
+        this.lblRePassword = lblRePassword;
+    }
+
+    public JLabel getLblRecover() {
+        return lblRecover;
+    }
+
+    public void setLblRecover(JLabel lblRecover) {
+        this.lblRecover = lblRecover;
+    }
+
+    public JLabel getLblSecAns() {
+        return lblSecAns;
+    }
+
+    public void setLblSecAns(JLabel lblSecAns) {
+        this.lblSecAns = lblSecAns;
+    }
+
+    public JLabel getLblSecQue() {
+        return lblSecQue;
+    }
+
+    public void setLblSecQue(JLabel lblSecQue) {
+        this.lblSecQue = lblSecQue;
+    }
+
+    public JLabel getLblTitle() {
+        return lblTitle;
+    }
+
+    public void setLblTitle(JLabel lblTitle) {
+        this.lblTitle = lblTitle;
+    }
+
+    public JLabel getLblUsername() {
+        return lblUsername;
+    }
+
+    public void setLblUsername(JLabel lblUsername) {
+        this.lblUsername = lblUsername;
+    }
+
+    public JLabel getLblWelcome() {
+        return lblWelcome;
+    }
+
+    public void setLblWelcome(JLabel lblWelcome) {
+        this.lblWelcome = lblWelcome;
+    }
+
+    public JTextField getTxtEmail() {
+        return txtEmail;
+    }
+
+    public void setTxtEmail(JTextField txtEmail) {
+        this.txtEmail = txtEmail;
+    }
+
+    public JTextField getTxtPassword() {
+        return txtPassword;
+    }
+
+    public void setTxtPassword(JTextField txtPassword) {
+        this.txtPassword = txtPassword;
+    }
+
+    public JTextField getTxtPasswordCheck() {
+        return txtPasswordCheck;
+    }
+
+    public void setTxtPasswordCheck(JTextField txtPasswordCheck) {
+        this.txtPasswordCheck = txtPasswordCheck;
+    }
+
+    public JTextField getTxtSecurity() {
+        return txtSecurity;
+    }
+
+    public void setTxtSecurity(JTextField txtSecurity) {
+        this.txtSecurity = txtSecurity;
+    }
+
+    public JTextField getTxtUsername() {
+        return txtUsername;
+    }
+
+    public void setTxtUsername(JTextField txtUsername) {
+        this.txtUsername = txtUsername;
+    }
  
     
 

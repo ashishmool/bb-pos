@@ -28,6 +28,7 @@ public class registerView extends javax.swing.JFrame {
      */
     public registerView() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     
@@ -163,7 +164,6 @@ public class registerView extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(40, 40, 40)
                                 .addComponent(lblRecover)
                                 .addGap(39, 39, 39))))
                     .addGroup(layout.createSequentialGroup()
@@ -254,6 +254,7 @@ public class registerView extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPasswordActionPerformed
