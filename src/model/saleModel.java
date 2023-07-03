@@ -4,6 +4,8 @@
  */
 package model;
 
+import java.util.Date;
+
 /**
  *
  * @author asism
@@ -11,24 +13,38 @@ package model;
 public class saleModel {
     String customer, product, unit;
     int qty, product_code, total_qty, inv_id;
-    Double unit_price, total_price, total_amount, paid_amount,change;
+    double unit_price, total_price, total_amount, paid_amount,change;
+    Date invoicedate;
 
-    public saleModel(String customer, String product, String unit, int qty, int product_code, int total_qty, Double unit_price, Double total_price, Double total_amount, Double paid_amount, Double change) {
+    
+  
+
+    public saleModel(int inv_id, String customer, String product, String unit, int qty, int product_code, int total_qty,  double unit_price, double total_price, double total_amount, double paid_amount, double change, Date invoicedate) {
+        this.inv_id = inv_id;
         this.customer = customer;
         this.product = product;
         this.unit = unit;
         this.qty = qty;
         this.product_code = product_code;
         this.total_qty = total_qty;
-        this.inv_id = inv_id;
+        
         this.unit_price = unit_price;
         this.total_price = total_price;
         this.total_amount = total_amount;
         this.paid_amount = paid_amount;
         this.change = change;
+        this.invoicedate = invoicedate;
     }
-
     
+
+
+    public Date getInvoicedate(){
+        return invoicedate;
+    }
+    
+    public void setInvoicedate(Date invoicedate){
+        this.invoicedate = invoicedate;
+    }
     
     public String getCustomer() {
         return customer;
