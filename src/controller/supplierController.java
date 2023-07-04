@@ -41,7 +41,34 @@ public class supplierController {
         
         return false;
     }
-    
+    public static supplierModel searchSupplier(String supplier_id){
+        
+        supplierModel supplier=null;
+        try{
+            String sql = "SELECT * FROM supplier WHERE s_id = '"+ supplier_id+"' ";
+            Connection connection = myConnection.myDatabase();
+            Statement stm = connection.createStatement();
+            ResultSet rset = stm.executeQuery(sql);
+            if (rset.next()){
+                supplier = new supplierModel(
+                rset.getString(1),
+                rset.getString(2),
+                rset.getString(3),
+                rset.getString(4),
+                rset.getString(5),
+                rset.getString(6),
+                rset.getString(7),
+                rset.getString(8),
+                rset.getString(9),
+                rset.getString(10),
+                rset.getString(11));
+            }
+        }
+        catch (SQLException e2){
+            System.out.println(e2.getMessage());
+        }
+        return supplier;
+    }
     
 
 
