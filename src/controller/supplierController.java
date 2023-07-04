@@ -109,7 +109,42 @@ public class supplierController {
             }
             return false;
     }
+
+    public static ArrayList<supplierModel> getAllSuppliers(){
+        ArrayList<supplierModel> allSupplier = new ArrayList<>();
+        try{
+            String sql = "SELECT * FROM supplier";
+            Connection connection = myConnection.myDatabase();
+            Statement stm = connection.createStatement();
+            ResultSet rset = stm.executeQuery(sql);
+            
+            while (rset.next()){
+                String su_id = rset.getString("s_id");
+                String s_name = rset.getString("s_cname");
+                String s_ppan = rset.getString("vat_pan");
+                String s_padd = rset.getString("sup_add");
+                String s_city = rset.getString("city");
+                String s_email = rset.getString("email");
+                String s_cname = rset.getString("scon_name");
+                String s_cdes = rset.getString("scon_des");
+                String s_cppan = rset.getString("sppan");
+                String s_cemail = rset.getString("scon_email");
+                String s_cmob = rset.getString("scon_mob");
+                
+                supplierModel supplier = new supplierModel(su_id,s_name,s_ppan,s_padd,s_city,s_email,s_cname,s_cdes,s_cppan,s_cemail,s_cmob);
+                allSupplier.add(supplier);
+            }
+        }
+        catch (SQLException e3){
+                System.out.println(e3.getMessage());
+            }
+        return allSupplier;
+    }
+    
+    
+}
+    
     
 
 
-}
+
