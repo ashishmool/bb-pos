@@ -42,4 +42,32 @@ public class employeeController {
         return false;
     }
     
+    public static employeeModel searchEmployee(String employee_id){
+        
+        employeeModel employee=null;
+        try{
+            String sql = "SELECT * FROM employee WHERE eid = '"+ employee_id+"' ";
+            Connection connection = myConnection.myDatabase();
+            Statement stm = connection.createStatement();
+            ResultSet rset = stm.executeQuery(sql);
+            if (rset.next()){
+                employee = new employeeModel(
+                rset.getString(1),
+                rset.getString(2),
+                rset.getString(3),
+                rset.getString(4),
+                rset.getString(5),
+                rset.getString(6),
+                rset.getString(7),
+                rset.getString(8),
+                rset.getString(9),
+                rset.getString(10),
+                rset.getString(11));
+            }
+        }
+        catch (SQLException e2){
+            System.out.println(e2.getMessage());
+        }
+        return employee;
+    }
 }
