@@ -96,4 +96,18 @@ public class employeeController {
         return false;
     }
     
+    public static boolean deleteEmployee(employeeModel employee){
+        try{
+            Connection connection = myConnection.myDatabase();
+            String sql = "DELETE FROM employee WHERE eid = ?";
+            PreparedStatement pst = connection.prepareStatement(sql);
+            pst.setObject(1, employee.getEmployee_id());
+            int result = pst.executeUpdate();
+            return (result>0);
+        }
+        catch (SQLException e3){
+                System.out.println(e3.getMessage());
+            }
+            return false;
+    }
 }
