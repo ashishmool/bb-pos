@@ -4,41 +4,38 @@
  */
 package model;
 
-
-
+/**
+ *
+ * @author asism
+ */
 public class productModel {
-    private int productid;
-    private String name;
-    private int barcode;
-    private int price;
-    private String unit;
-    private int qty;
-    private int supplierid;
-    private String searchid;
     
-    
-    public productModel(String productid, String name, String barcode, String price,String unit, String qty, String supplierid,String searchid){
-        
+    String product_id;
+    String name;
+    String barcode;
+    String unit;
+    Double price;
+    int quantity;
+    String supplier_id;
+
+    public productModel(String product_id, String name, String barcode, String unit, Double price, int quantity, String supplier_id) {
+        this.product_id = product_id;
+        this.name = name;
+        this.barcode = barcode;
+        this.unit = unit;
+        this.price = price;
+        this.quantity = quantity;
+        this.supplier_id = supplier_id;
     }
     
-    public  productModel(int productid,String name,int barcode,int price,String unit,int qty,int supplierid,String searchid){
-        this.productid=productid;
-        this.name=name;
-        this.barcode=barcode;
-        this.price=price;
-        this.unit=unit;
-        this.qty=qty;
-        this.supplierid=supplierid;
-        this.searchid=searchid;
-        
+    
+
+    public String getProduct_id() {
+        return product_id;
     }
 
-    public int getProductid() {
-        return productid;
-    }
-
-    public void setProductid(int productid) {
-        this.productid = productid;
+    public void setProduct_id(String product_id) {
+        this.product_id = product_id;
     }
 
     public String getName() {
@@ -49,28 +46,12 @@ public class productModel {
         this.name = name;
     }
 
-    public int getBarcode() {
+    public String getBarcode() {
         return barcode;
     }
 
-    public void setBarcode(int barcode) {
+    public void setBarcode(String barcode) {
         this.barcode = barcode;
-    }
-
-    public String getSearchid() {
-        return searchid;
-    }
-
-    public void setSearch(String search) {
-        this.searchid = search;
-    }
-
-    public int getPrice() {
-        return price;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
     }
 
     public String getUnit() {
@@ -81,26 +62,31 @@ public class productModel {
         this.unit = unit;
     }
 
-    public int getQty() {
-        return qty;
+    public Double getPrice() {
+        return price;
     }
 
-    public void setQty(int qty) {
-        this.qty = qty;
+    public void setPrice(Double price) {
+        this.price = price;
     }
 
-    public int getSupplierid() {
-        return supplierid;
+    public int getQuantity() {
+        return quantity;
     }
 
-    public void setSupplierid(int supplierid) {
-        this.supplierid = supplierid;
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
-    
+
+    public String getSupplier_id() {
+        return supplier_id;
+    }
+
+    public void setSupplier_id(String supplier_id) {
+        this.supplier_id = supplier_id;
+    }
+
    
-    
-  
-      
     
     
 }
