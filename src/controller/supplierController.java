@@ -69,6 +69,31 @@ public class supplierController {
         }
         return supplier;
     }
+
+    public static boolean updateSupplier(supplierModel supplier){
+        try{
+            String sql = "UPDATE supplier SET s_cname = ?, vat_pan = ?, sup_add = ?, city = ?, email = ?, scon_name = ?, scon_des = ?, sppan = ?, scon_email = ?, scon_mob = ?  WHERE s_id = ? ";
+            Connection connection = myConnection.myDatabase();
+            PreparedStatement pst = connection.prepareStatement(sql);
+            pst.setObject(11,supplier.getSupplier_id());
+            pst.setObject(1,supplier.getSupplier_name());
+            pst.setObject(2,supplier.getSupplier_vatpan());
+            pst.setObject(3,supplier.getSupplier_address());
+            pst.setObject(4,supplier.getSupplier_city());
+            pst.setObject(5,supplier.getSupplier_email());
+            pst.setObject(6,supplier.getSupplier_cname());
+            pst.setObject(7,supplier.getSupplier_cdesig());
+            pst.setObject(8,supplier.getSupplier_cppan());
+            pst.setObject(9,supplier.getSupplier_cemail());
+            pst.setObject(10,supplier.getSupplier_cmob());
+            int result = pst.executeUpdate();
+            return(result>0);
+        }
+        catch (SQLException e3){
+            System.out.println(e3.getMessage());
+        }
+        return false;
+    }
     
 
 
