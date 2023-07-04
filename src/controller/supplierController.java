@@ -12,7 +12,7 @@ import model.*;
 
 /**
  *
- * @author asism
+ * @author Sujan
  */
 public class supplierController {
     
