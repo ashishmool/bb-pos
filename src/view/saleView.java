@@ -829,6 +829,7 @@ public class saleView extends javax.swing.JPanel {
     }//GEN-LAST:event_txtQtyKeyReleased
 
     private void btnAddToCartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddToCartActionPerformed
+
         //add  cart to product details 
        String quantity = txtQty.getText();
        if("0".equals(quantity)){
@@ -837,11 +838,26 @@ public class saleView extends javax.swing.JPanel {
        JOptionPane.showMessageDialog(null, "Quanity is Zero");
        }
        else{
-           
-           
-           
+        
+           productModel product2 = productController.getProduct((String) comboProduct.getSelectedItem());
+           String productId = product2.getBarcode();
+
         DefaultTableModel dt = (DefaultTableModel) tblSale.getModel();
         
+        
+
+        // Fetch the product quantity from the database
+        int currentQuantity = productController.getQuantity(productId);
+            System.out.println("Current Quantity at Stock:: "+currentQuantity);
+        int requestedQuantity = Integer.parseInt(txtQty.getText());
+        System.out.println("Requested Quantity:: "+requestedQuantity);
+        
+        
+        if (requestedQuantity>currentQuantity){
+            JOptionPane.showMessageDialog(null, "Not Enough Stock");
+        }
+        
+        else{
         Vector v = new Vector();
         
         v.add(lblProductcode.getText()); // barcode
@@ -860,9 +876,8 @@ public class saleView extends javax.swing.JPanel {
         int totalQty = calculateCartItems(dt);
         System.out.println("Total Quantity: " + totalQty);
         lblTotalqtydisplay.setText(String.valueOf(totalQty));
- 
+        }
        }
-        
         
     }//GEN-LAST:event_btnAddToCartActionPerformed
 
