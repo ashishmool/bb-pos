@@ -110,4 +110,35 @@ public class employeeController {
             }
             return false;
     }
+
+    public static ArrayList<employeeModel> getAllEmployees(){
+        ArrayList<employeeModel> allEmployee = new ArrayList<>();
+        try{
+            String sql = "SELECT * FROM employee";
+            Connection connection = myConnection.myDatabase();
+            Statement stm = connection.createStatement();
+            ResultSet rset = stm.executeQuery(sql);
+            
+            while (rset.next()){
+                String employee_id = rset.getString("eid");
+                String employee_name = rset.getString("e_name");
+                String employee_ppan = rset.getString("e_ppan");
+                String employee_padd = rset.getString("e_padd");
+                String employee_tadd = rset.getString("e_tadd");
+                String employee_mob = rset.getString("e_mob");
+                String employee_email = rset.getString("e_email");
+                String employee_cname = rset.getString("e_econname");
+                String employee_crela = rset.getString("e_rel");
+                String employee_cmob = rset.getString("e_emob");
+                String employee_caltnum = rset.getString("e_ealtmob");
+                
+                employeeModel employee = new employeeModel(employee_id,employee_name,employee_ppan,employee_padd,employee_tadd,employee_mob,employee_email,employee_cname,employee_crela,employee_cmob,employee_caltnum);
+                allEmployee.add(employee);
+            }
+        }
+        catch (SQLException e3){
+                System.out.println(e3.getMessage());
+            }
+        return allEmployee;
+    }
 }
