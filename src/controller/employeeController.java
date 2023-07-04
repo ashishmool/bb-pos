@@ -70,4 +70,30 @@ public class employeeController {
         }
         return employee;
     }
+
+    public static boolean updateEmployee(employeeModel employee){
+        try{
+            String sql = "UPDATE employee SET e_name = ?, e_ppan = ?, e_padd = ?, e_tadd = ?, e_mob = ?, e_email = ?, e_econname = ?, e_rel = ?, e_emob = ?, e_ealtmob = ?  WHERE eid = ? ";
+            Connection connection = myConnection.myDatabase();
+            PreparedStatement pst = connection.prepareStatement(sql);
+            pst.setObject(11,employee.getEmployee_id());
+            pst.setObject(1,employee.getEmployee_name());
+            pst.setObject(2,employee.getEmployee_ppan());
+            pst.setObject(3,employee.getEmployee_padd());
+            pst.setObject(4,employee.getEmployee_tadd());
+            pst.setObject(5,employee.getEmployee_mob());
+            pst.setObject(6,employee.getEmployee_email());
+            pst.setObject(7,employee.getEmployee_cname());
+            pst.setObject(8,employee.getEmployee_crela());
+            pst.setObject(9,employee.getEmployee_cmob());
+            pst.setObject(10,employee.getEmployee_caltnum());
+            int result = pst.executeUpdate();
+            return(result>0);
+        }
+        catch (SQLException e3){
+            System.out.println(e3.getMessage());
+        }
+        return false;
+    }
+    
 }
