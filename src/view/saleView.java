@@ -43,17 +43,7 @@ public class saleView extends javax.swing.JPanel {
        txtDate.setText(formattedDate);
        txtDate.setEnabled(false);
        
-       //Bill Format
-       String storeName = "Bhat-Bhateni Super Store";
-       String phone = "Phone: +977-1-4420665, 4420666";
-       String vatNo = "VAT No. 606222024";
        
-       String billText = "\t"+storeName+"\n"
-               + "\t"+phone + "\n"
-               + "\t"+vatNo + "\n"
-               ;
-       billArea.setText(billText);
-       billArea.setEditable(false);
 
     }
     
@@ -193,9 +183,7 @@ public class saleView extends javax.swing.JPanel {
      
    public void clearText(){
        comboCustomer.setEnabled(true);
-       loadCustomers();
        comboProduct.setSelectedItem(null);
-       loadProducts();
        txtQty.setText("0");
        lblProductcode.setText(null);
        lblUnitPrice.setText("00.00");
@@ -204,6 +192,7 @@ public class saleView extends javax.swing.JPanel {
        lblTotalqtydisplay.setText(null);
        lblChangeamount.setText("00.00");
        txtPaidamt.setText("0");
+       billArea.setText("");
        
        // remove all
         DefaultTableModel dt = (DefaultTableModel) tblSale.getModel();
@@ -218,10 +207,75 @@ public class saleView extends javax.swing.JPanel {
         
        
     }  
-     
+    
+   
+   private void updateStock(){
+       
+       DefaultTableModel dt = (DefaultTableModel) tblSale.getModel();
+    int rowCount = dt.getRowCount();
+
+    for (int row = 0; row < rowCount; row++) {
+        String productId = dt.getValueAt(row, 0).toString(); // Assuming the product ID is in the first column
+
+        // Fetch the product quantity from the database
+        int currentQuantity = productController.getQuantity(productId);
+        System.out.println("Current Quantity"+currentQuantity);
+
+        if (currentQuantity != 0) {
+            int quantityPurchased = Integer.parseInt(dt.getValueAt(row, 4).toString()); // Assuming the quantity is in the third column
+            System.out.println("Quantity Purchased Retrieved: "+quantityPurchased);
+            int updatedQuantity = currentQuantity - quantityPurchased;
+            System.out.println("Updated Quantity Calculated::: "+updatedQuantity);
+
+            // Update the product's quantity in the database
+            productModel product = new productModel("", "", productId, "", 0.0, updatedQuantity, "");
+            boolean success = productController.updateProductAfterSale(product);
+
+            if (!success) {
+                JOptionPane.showMessageDialog(this, "Failed to update product stock for product ID: " + productId);
+                // Handle the error or notify the user appropriately
+            }
+        }
+    }
+       
+       
+   }
+   
     private void paymentPrint(){
+       
+        updateStock();
+        
+        //Bill Format
+       String storeName = "Bhat-Bhateni Super Store";
+       String phone = "Phone: +977-1-4420665, 4420666";
+       String vatNo = "VAT No. 606222024";
+       
+       String billText = "\t"+storeName+"\n"
+               + "\t"+phone + "\n"
+               + "\t"+vatNo + "\n\n\n"
+               ;
+       billArea.setText(billText);
+       billArea.setEditable(false);
+       
+        DefaultTableModel dt = (DefaultTableModel) tblSale.getModel();
+        int rowCount = dt.getRowCount();
+        int columnCount = dt.getColumnCount();
+        StringBuilder sb = new StringBuilder();
+
+        for (int row = 0; row < rowCount; row++) {
+            for (int column = 0; column < columnCount; column++) {
+                Object value = dt.getValueAt(row, column);
+                sb.append(value).append("\t");
+            }
+            sb.append("\n");
+        }
+                    
+
+        // Display the table in the JTextArea
+        billArea.setText(billText+sb.toString());
+        
         paymentModel payment;
-        if (comboCustomer.getSelectedItem().toString()!="select"){
+        
      
      DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date date = null;
@@ -232,7 +286,7 @@ public class saleView extends javax.swing.JPanel {
         }
         payment = new paymentModel(Integer.parseInt(lblInvoiceid.getText()),
                 comboCustomer.getSelectedItem().toString(),
-                Double.parseDouble(lblTotalqtydisplay.getText()),
+                Integer.parseInt(lblTotalqtydisplay.getText()),
                 Double.parseDouble(lblCarttotal.getText()),
                 Double.parseDouble(txtPaidamt.getText()),
                 Double.parseDouble(lblChangeamount.getText()),
@@ -240,53 +294,24 @@ public class saleView extends javax.swing.JPanel {
         
         boolean result = saleController.addSale(payment);
         
+        
         if (result){
+            
             JOptionPane.showMessageDialog(this, "payment Added Successfully!");
+            
+
                      // pluss new invoice
       int i = Integer.valueOf(lblInvoiceid.getText());
       i++;
       lblInvoiceid.setText(String.valueOf(i));
             clearText();
-//            loadData();
+
         }
         else{
             JOptionPane.showMessageDialog(this, "Error! payment could not be added...");
         }
-        }
-        else{
-            
-             
-     DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Date date = null;
-        try {
-            date = dateFormat.parse(txtDate.getText());
-        } catch (ParseException ex) {
-            Logger.getLogger(saleView.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        payment = new paymentModel(Integer.parseInt(lblInvoiceid.getText()),
-                "Guest",
-                Double.parseDouble(lblTotalqtydisplay.getText()),
-                Double.parseDouble(lblCarttotal.getText()),
-                Double.parseDouble(txtPaidamt.getText()),
-                Double.parseDouble(lblChangeamount.getText()),
-                date);
         
-        boolean result = saleController.addSale(payment);
-        
-        if (result){
-            JOptionPane.showMessageDialog(this, "payment Added Successfully!");
-                     // pluss new invoice
-      int i = Integer.valueOf(lblInvoiceid.getText());
-      i++;
-      lblInvoiceid.setText(String.valueOf(i));
-            clearText();
-            
-        }
-        }
-        
-        
-     
-   
+
     }
     
 
@@ -815,7 +840,7 @@ public class saleView extends javax.swing.JPanel {
            
            
            
-           DefaultTableModel dt = (DefaultTableModel) tblSale.getModel();
+        DefaultTableModel dt = (DefaultTableModel) tblSale.getModel();
         
         Vector v = new Vector();
         
@@ -832,7 +857,7 @@ public class saleView extends javax.swing.JPanel {
         System.out.println("Total Amount: " + totalAmount);
         lblCarttotal.setText(String.valueOf(totalAmount));
         
-        double totalQty = calculateCartItems(dt);
+        int totalQty = calculateCartItems(dt);
         System.out.println("Total Quantity: " + totalQty);
         lblTotalqtydisplay.setText(String.valueOf(totalQty));
  
@@ -853,7 +878,7 @@ public class saleView extends javax.swing.JPanel {
             System.out.println("Total Amount: " + totalAmount);
             lblCarttotal.setText(String.valueOf(totalAmount));
             
-            double totalQty = calculateCartItems(dt);
+            int totalQty = calculateCartItems(dt);
             System.out.println("Total Quantity: " + totalQty);
             lblTotalqtydisplay.setText(String.valueOf(totalQty));
             
@@ -874,7 +899,7 @@ public class saleView extends javax.swing.JPanel {
         System.out.println("Total Amount: " + totalAmount);
         lblCarttotal.setText(String.valueOf(totalAmount));
 
-        double totalQty = calculateCartItems(dt);
+        int totalQty = calculateCartItems(dt);
         System.out.println("Total Quantity: " + totalQty);
         lblTotalqtydisplay.setText(String.valueOf(totalQty));
         
