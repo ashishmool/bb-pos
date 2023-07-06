@@ -10,7 +10,7 @@ import model.*;
 
 import java.awt.*;
 import java.awt.print.PrinterException;
-import java.io.FileOutputStream;
+
 import java.text.MessageFormat;
 import java.util.*;
 import javax.swing.*;
@@ -30,19 +30,24 @@ public class customerView extends javax.swing.JPanel {
     public customerView() {
         
         initComponents();
-        loadData();
+        loadData();//load all Customer on Screen
+        retrieveLastCustomer(); //retrieve last customer_id
     }
     
-     public void clearText(){
-        txtCustomerId.setText("");
-        txtFullName.setText("");
-        txtMobile.setText("");
-        txtBilling.setText("");
-        txtShipping.setText("");
-        txtEmail.setText("");
-        txtNationality.setText("");
+    //function to retrieve last customer_id from controller
+    public void retrieveLastCustomer(){
+        customerController controller = new customerController();
+        int lastCustomer = controller.loadLastCustomer();
+        processLastCustomer(lastCustomer);
     }
     
+    private void processLastCustomer(int lastCustomer){
+        
+        txtCustomerId.setText(String.valueOf(lastCustomer+1));//increment last loaded customer number by 1
+    }
+    
+ 
+    //this function loads all customers
     public void loadData(){
         
         ArrayList<customerModel> allCustomer = customerController.getAllCustomers();
@@ -62,6 +67,7 @@ public class customerView extends javax.swing.JPanel {
         }
     }
     
+    //this function only loads specific customer for search function
     public void specificloadData(String searchRow){
         
         ArrayList<customerModel> specificCustomer = customerController.getAllCustomers();
@@ -73,7 +79,16 @@ public class customerView extends javax.swing.JPanel {
         trs.setRowFilter(RowFilter.regexFilter(searchRow));
 
     }
-    
+        //function to clear the text fields and labels
+        public void clearText(){
+        txtCustomerId.setText("");
+        txtFullName.setText("");
+        txtMobile.setText("");
+        txtBilling.setText("");
+        txtShipping.setText("");
+        txtEmail.setText("");
+        txtNationality.setText("");
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -117,12 +132,14 @@ public class customerView extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         txtSearchbyid = new javax.swing.JTextField();
         lblNote = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnPrint = new javax.swing.JButton();
         jPanel11 = new javax.swing.JPanel();
-        btnCustomerReportAll = new javax.swing.JButton();
-        cid = new javax.swing.JTextField();
+        txtCid = new javax.swing.JTextField();
         lblCustomerRep = new javax.swing.JLabel();
         btnViewCustomerRep = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        reportArea = new javax.swing.JTextArea();
+        btnPrint1 = new javax.swing.JButton();
 
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -242,24 +259,23 @@ public class customerView extends javax.swing.JPanel {
         jPanel9.setLayout(jPanel9Layout);
         jPanel9Layout.setHorizontalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel9Layout.createSequentialGroup()
-                .addGap(25, 25, 25)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
+                .addGap(0, 31, Short.MAX_VALUE)
                 .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel9Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
+                .addContainerGap(17, Short.MAX_VALUE)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE, false)
                     .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addGap(15, 15, 15))
         );
 
         txtBilling.setColumns(20);
@@ -454,12 +470,12 @@ public class customerView extends javax.swing.JPanel {
 
         lblNote.setText("**Note: Start typing to search using any information.");
 
-        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/print.png"))); // NOI18N
-        jButton1.setText("Print");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnPrint.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        btnPrint.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/print.png"))); // NOI18N
+        btnPrint.setText("Print");
+        btnPrint.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnPrintActionPerformed(evt);
             }
         });
 
@@ -476,7 +492,7 @@ public class customerView extends javax.swing.JPanel {
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addComponent(txtSearchbyid, javax.swing.GroupLayout.PREFERRED_SIZE, 503, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(41, 41, 41)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnPrint, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(276, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
@@ -486,7 +502,7 @@ public class customerView extends javax.swing.JPanel {
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(txtSearchbyid, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnPrint, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblNote)
                 .addContainerGap(19, Short.MAX_VALUE))
@@ -522,13 +538,6 @@ public class customerView extends javax.swing.JPanel {
 
         tabCustomer.addTab("Search Customer", jPanel4);
 
-        btnCustomerReportAll.setText("All Customer Reports");
-        btnCustomerReportAll.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCustomerReportAllActionPerformed(evt);
-            }
-        });
-
         lblCustomerRep.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         lblCustomerRep.setText("Customer ID :");
 
@@ -539,33 +548,56 @@ public class customerView extends javax.swing.JPanel {
             }
         });
 
+        reportArea.setColumns(20);
+        reportArea.setRows(5);
+        jScrollPane3.setViewportView(reportArea);
+
+        btnPrint1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        btnPrint1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/print.png"))); // NOI18N
+        btnPrint1.setText("Print");
+        btnPrint1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPrint1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
         jPanel11.setLayout(jPanel11Layout);
         jPanel11Layout.setHorizontalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel11Layout.createSequentialGroup()
-                .addGap(41, 41, 41)
-                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnViewCustomerRep, javax.swing.GroupLayout.DEFAULT_SIZE, 333, Short.MAX_VALUE)
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel11Layout.createSequentialGroup()
-                        .addGap(11, 11, 11)
-                        .addComponent(lblCustomerRep, javax.swing.GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE))
-                    .addComponent(btnCustomerReportAll, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(cid, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addContainerGap(793, Short.MAX_VALUE))
+                        .addGap(41, 41, 41)
+                        .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnViewCustomerRep, javax.swing.GroupLayout.DEFAULT_SIZE, 333, Short.MAX_VALUE)
+                            .addGroup(jPanel11Layout.createSequentialGroup()
+                                .addGap(11, 11, 11)
+                                .addComponent(lblCustomerRep, javax.swing.GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE))
+                            .addComponent(txtCid, javax.swing.GroupLayout.Alignment.TRAILING)))
+                    .addGroup(jPanel11Layout.createSequentialGroup()
+                        .addGap(105, 105, 105)
+                        .addComponent(btnPrint1, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(78, 78, 78)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 685, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(32, Short.MAX_VALUE))
         );
         jPanel11Layout.setVerticalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel11Layout.createSequentialGroup()
                 .addGap(34, 34, 34)
-                .addComponent(btnCustomerReportAll, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37)
-                .addComponent(lblCustomerRep, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cid, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnViewCustomerRep, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(256, Short.MAX_VALUE))
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 471, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel11Layout.createSequentialGroup()
+                        .addGap(107, 107, 107)
+                        .addComponent(lblCustomerRep, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtCid, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnViewCustomerRep, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(51, 51, 51)
+                        .addComponent(btnPrint1, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(60, Short.MAX_VALUE))
         );
 
         tabCustomer.addTab("Reports", jPanel11);
@@ -598,7 +630,7 @@ public class customerView extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtSearchbyidKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchbyidKeyReleased
-       
+       //Exception handling in case of null load all customers and in case of supplied string search by using seperateloadData function
         String search = txtSearchbyid.getText();
         if (search==null){
             loadData();
@@ -620,20 +652,35 @@ public class customerView extends javax.swing.JPanel {
 
     }//GEN-LAST:event_txtSearchbyidActionPerformed
 
-    private void btnCustomerReportAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCustomerReportAllActionPerformed
-//        // Open All Customers
-
-   
-    }//GEN-LAST:event_btnCustomerReportAllActionPerformed
-
     private void btnViewCustomerRepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewCustomerRepActionPerformed
-        // serch customerView for id
+        // retrieve customer_id from Jtextfield
+        String getid = txtCid.getText();
+        ArrayList<paymentModel> payment = saleController.getPaymentsByCustomerID(getid);
+        
+        // Create a StringBuilder to store the formatted payment information
+        StringBuilder report = new StringBuilder();
+
+        // Iterate over each payment and append its details to the report
+        for (paymentModel paymentItem : payment) {
+            report.append("Invoice ID: ").append(paymentItem.getInv_id()).append("\n");
+            report.append("Customer: ").append(paymentItem.getCustomer()).append("\n");
+            report.append("Total Quantity: ").append(paymentItem.getTotal_qty()).append("\n");
+            report.append("Total Amount: ").append(paymentItem.getTotal_amount()).append("\n");
+            report.append("Paid Amount: ").append(paymentItem.getPaid_amount()).append("\n");
+            report.append("Change: ").append(paymentItem.getChange()).append("\n");
+            report.append("Invoice Date: ").append(paymentItem.getInvoicedate()).append("\n");
+            report.append("----------------------------------------\n");
+        }
+
+        // Set the formatted payment report to the reportArea
+        reportArea.setText(report.toString());
+
   
     }//GEN-LAST:event_btnViewCustomerRepActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-             MessageFormat header = new MessageFormat("::: All Customers :::");
+    private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
+        // Set the format for print and display header and footer
+        MessageFormat header = new MessageFormat("::: All Customers :::");
         MessageFormat footer = new MessageFormat("Bhat-Bhateni POS Management System");
         try{
             tblCustomer.print(JTable.PrintMode.FIT_WIDTH, header, footer);
@@ -643,10 +690,10 @@ public class customerView extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null,"Error! Cannot Print"+e.getMessage());
             
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnPrintActionPerformed
 
     private void sameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sameActionPerformed
-        // Same as Billing code
+        // Same as Billing address pull code function for checkbox
         if (same.isSelected()) {
             txtShipping.setText(txtBilling.getText());
         }else{
@@ -655,7 +702,7 @@ public class customerView extends javax.swing.JPanel {
     }//GEN-LAST:event_sameActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-
+        //function to process addition of new customer
         customerModel customer = new customerModel(txtCustomerId.getText(),
             txtFullName.getText(), txtMobile.getText(),txtBilling.getText(),txtShipping.getText(),
             txtEmail.getText(),txtNationality.getText());
@@ -673,7 +720,7 @@ public class customerView extends javax.swing.JPanel {
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-        // update btn code
+        // function to process update of existing customer
 
         customerModel customer = new customerModel(txtCustomerId.getText(),
             txtFullName.getText(), txtMobile.getText(),txtBilling.getText(),txtShipping.getText(),
@@ -692,7 +739,7 @@ public class customerView extends javax.swing.JPanel {
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        //delete btn code
+        // function to delete existing customer
 
         customerModel customer = new customerModel(txtCustomerId.getText(),
             txtFullName.getText(), txtMobile.getText(),txtBilling.getText(),txtShipping.getText(),
@@ -714,12 +761,12 @@ public class customerView extends javax.swing.JPanel {
     }//GEN-LAST:event_txtEmailActionPerformed
 
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
-        // TODO add your handling code here:
+        // clear fields action
         clearText();
     }//GEN-LAST:event_btnClearActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-        // search btn code
+        // function to search and retrieve csutomers from the database
 
         customerModel customer = customerController.searchCustomer(txtCustomerId.getText());
         if (customer != null){
@@ -741,17 +788,30 @@ public class customerView extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnSearchActionPerformed
 
+    private void btnPrint1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrint1ActionPerformed
+        //function to print customer report table
+        MessageFormat header = new MessageFormat("Customer Report");
+        MessageFormat footer = new MessageFormat("Bhat-Bhateni POS Management System");
+        try{
+            reportArea.print(header, footer);
+
+        }
+        catch (PrinterException e){
+            JOptionPane.showMessageDialog(null,"Error! Cannot Print"+e.getMessage());
+
+        }
+    }//GEN-LAST:event_btnPrint1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClear;
-    private javax.swing.JButton btnCustomerReportAll;
     private javax.swing.JButton btnDelete;
+    private javax.swing.JButton btnPrint;
+    private javax.swing.JButton btnPrint1;
     private javax.swing.JButton btnSave;
     private javax.swing.JButton btnSearch;
     private javax.swing.JButton btnUpdate;
     private javax.swing.JButton btnViewCustomerRep;
-    private javax.swing.JTextField cid;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
@@ -766,6 +826,7 @@ public class customerView extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JLabel lblBillAdd;
     private javax.swing.JLabel lblCustomerRep;
@@ -777,10 +838,12 @@ public class customerView extends javax.swing.JPanel {
     private javax.swing.JLabel lblNote;
     private javax.swing.JLabel lblSearch;
     private javax.swing.JLabel lblShipAdd;
+    private javax.swing.JTextArea reportArea;
     private javax.swing.JCheckBox same;
     private javax.swing.JTabbedPane tabCustomer;
     private javax.swing.JTable tblCustomer;
     private javax.swing.JTextArea txtBilling;
+    private javax.swing.JTextField txtCid;
     private javax.swing.JTextField txtCustomerId;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtFullName;
