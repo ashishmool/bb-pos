@@ -12,8 +12,8 @@ import java.util.Date;
  */
 public class saleModel {
     String customer, product, unit;
-    int qty, product_code, total_qty, inv_id;
-    double unit_price, total_price, total_amount, paid_amount,change;
+    int qty, product_code, inv_id, total_qty;
+    double  unit_price, total_price, total_amount, paid_amount,change;
     Date invoicedate;
 
     
