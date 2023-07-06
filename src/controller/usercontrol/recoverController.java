@@ -2,8 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package controller;
+package controller.usercontrol;
 
+import view.usercontrol.recoverView;
+import model.usercontrol.recoverModel;
 import database.*;
 import model.*;
 import view.*;
@@ -61,11 +63,6 @@ public class recoverController {
             
             System.out.println("Username Updated::: "+model.getUsername());
             
-//            pst.setString(1,txtUsername.getText());
-//            pst.setString(2, txtPassword.getText());
-//            pst.setString(3, txtPasswordCheck.getText());
-//            pst.setString(4, txtEmail.getText());
-//            pst.setString(5, txtSecurity.getText());
             pst.execute();
         }
         catch (Exception e)

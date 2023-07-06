@@ -2,8 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package controller;
+package controller.usercontrol;
 
+import view.usercontrol.loginView;
+import model.usercontrol.loginModel;
 import database.*;
 import model.*;
 import view.*;
@@ -36,8 +38,12 @@ public class loginController {
                 model=view.getUser();
                 if(checkUser(model))
                 {
-//                    view.setMessage("Login Successfully");
                     dashboardView d=new dashboardView();
+                    
+                    
+                    String username = model.getUsername();
+                    
+                    d.setUsername(username);
                     d.setVisible(true);
                     view.dispose();
                 }
@@ -64,11 +70,14 @@ public class loginController {
           String sql="select * from users where uname='"+user.getUsername()+"' AND pass='"+user.getPassword()+"'";
           try
           {
+            
             stmt=conn.createStatement();
             rs=stmt.executeQuery(sql);
             if(rs.next())
              {
                  return true;
+                 
+                
              }
              conn.close();
 
