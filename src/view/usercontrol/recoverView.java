@@ -2,8 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package view;
+package view.usercontrol;
 
+import controller.usercontrol.recoverController;
+import model.usercontrol.recoverModel;
 import javax.swing.*;
 import model.*;
 import controller.*;
@@ -35,15 +37,15 @@ public class recoverView extends javax.swing.JFrame {
      */
     public recoverView() {
         
-//        recoverModel rm1 = new recoverModel(username, pass, re_pass, email, sec_ans);
-//        recoverController rc1 = new recoverController(rm1, this);
-//        rc1.initrecoverController();
-        recoverModel rm1 = new recoverModel(username, pass, re_pass, email, sec_ans);
-        recoverController rc3 = new recoverController(rm1,this);
+        
+        recoverController rc3 = new recoverController(this);
+        retrieveUser();
         initComponents();
         this.setLocationRelativeTo(null);
 
     }
+    
+    
     
      public recoverView(String Email){
          
@@ -51,8 +53,33 @@ public class recoverView extends javax.swing.JFrame {
         initComponents();
         
         loadText();
+
         
     }
+     
+     public void retrieveUser(){
+        
+        usersDAO daoUsers = new usersDAO(); // Create an instance of usersDAO
+        
+        // Create an instance of recoverModel to store the retrieved data
+        recoverModel rec = new recoverModel(username, pass, re_pass, email, sec_ans);
+        
+        // Call the loadText method and pass the email_check value and the recoverModel instance
+        usersDAO.loadUser(email_check, rec);
+        
+        // Use the data from the recoverModel object as needed
+        String username = rec.getUsername();
+        txtUsername.setText(username);
+        String password = rec.getPass();
+        txtPassword.setText(password);
+        String rePassword = rec.getRe_pass();
+        txtPasswordCheck.setText(rePassword);
+        String email = rec.getEmail();
+        txtEmail.setText(email);
+        String securityAnswer = rec.getSec_ans();
+        txtSecurity.setText(securityAnswer);
+        
+     }
     
     public void loadText(){
          try{
@@ -78,43 +105,6 @@ public class recoverView extends javax.swing.JFrame {
                 }
     }
     
-    public void deleteUser(){
-
-        try {
-            Connection conn = myConnection.myDatabase();
-            
-            stmt = conn.createStatement();
-            stmt.executeUpdate("DELETE FROM users WHERE email = '"+email_check+"'");
-            
-            System.out.println("User Deleted Successfully!");
-            
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());;
-        }
-    }
-    
-    
-        public void updateUser(){
-            
-        PreparedStatement pst = null;
-        Connection conn = myConnection.myDatabase();
-        
-        String sql = "UPDATE users SET uname=?,pass=?,re_pass=?,email=?,sec_ans=? WHERE email='"+email_check+"'";
-        try
-        {
-            pst = conn.prepareStatement(sql);
-            pst.setString(1,txtUsername.getText());
-            pst.setString(2, txtPassword.getText());
-            pst.setString(3, txtPasswordCheck.getText());
-            pst.setString(4, txtEmail.getText());
-            pst.setString(5, txtSecurity.getText());
-            pst.execute();
-        }
-        catch (Exception e)
-                {
-                    System.out.println(e.getMessage());
-                }
-    }
     
     public recoverModel getUser()
     {
@@ -123,13 +113,6 @@ public class recoverView extends javax.swing.JFrame {
         
     }
     
-    
-    
-//    public void setRecord(String record){
-//        System.out.println("Email Record View");
-//        txtEmail.setText(record);
-//    }
-//    
     public void setMessage (String msg)
     {
         JOptionPane.showMessageDialog(this,msg);
@@ -379,8 +362,15 @@ public class recoverView extends javax.swing.JFrame {
         int confirmed = JOptionPane.showConfirmDialog(null, "Update User?","Update",JOptionPane.YES_NO_OPTION);
          if (confirmed == JOptionPane.YES_OPTION)
          {
-//             updateUser();
-             recoverController rc4 = new recoverController(this);
+            recoverModel rm1 = new recoverModel(username, pass, re_pass, email, sec_ans);
+            rm1.setUsername(txtUsername.getText());
+            rm1.setPass(txtPassword.getText());
+            rm1.setRe_pass(txtPasswordCheck.getText());
+            rm1.setEmail(txtEmail.getText());
+            rm1.setSec_ans(txtSecurity.getText());
+            usersDAO daoUsers = new usersDAO();
+            daoUsers.update(rm1);
+            
              loginView lv4 = new loginView();
              lv4.setVisible(true);
              this.dispose();
@@ -400,10 +390,6 @@ public class recoverView extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtPasswordCheckActionPerformed
 
-    private void txtEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmailActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtEmailActionPerformed
-
     private void txtSecurityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSecurityActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtSecurityActionPerformed
@@ -412,13 +398,21 @@ public class recoverView extends javax.swing.JFrame {
         int confirmed = JOptionPane.showConfirmDialog(null, "Delete User?","Delete",JOptionPane.YES_NO_OPTION);
         if (confirmed == JOptionPane.YES_OPTION)
         {
-//            deleteUser();
-//            recoverController.deleteUser();
+
+            recoverModel rm2 = new recoverModel(username, pass, re_pass, email, sec_ans);
+            rm2.setEmail(txtEmail.getText());
+            usersDAO daoUsers = new usersDAO();
+            daoUsers.delete(rm2);
+            
             loginView lv3 = new loginView();
             lv3.setVisible(true);
             this.dispose();
         }
     }//GEN-LAST:event_btnDeleteAccActionPerformed
+
+    private void txtEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmailActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtEmailActionPerformed
 
     public void addLoginListener(ActionListener log) {
         btnUpdateUser.addActionListener(log);

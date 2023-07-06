@@ -2,9 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package view;
+package view.usercontrol;
 
 //import java.awt.event.*;
+import controller.usercontrol.registerController;
+import model.usercontrol.registerModel;
 import javax.swing.*;
 //import model.*;
 //import controller.*;
@@ -263,7 +265,7 @@ public class registerView extends javax.swing.JFrame {
 
     private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
         // TODO add your handling code here:
-            registerController r = new registerController(this);
+            registerController rc7 = new registerController(this);
     }//GEN-LAST:event_btnRegisterActionPerformed
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed

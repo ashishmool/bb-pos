@@ -2,8 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package view;
+package view.usercontrol;
 
+import controller.usercontrol.loginrecoverController;
+import model.usercontrol.loginrecoverModel;
 import java.awt.event.*;
 import javax.swing.*;
 import model.*;
@@ -178,7 +180,7 @@ public class loginrecoverView extends javax.swing.JFrame {
 
     private void btnRecoverAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecoverAccountActionPerformed
         // TODO add your handling code here:
-        loginrecoverController rc2 = new loginrecoverController(this);   
+        loginrecoverController rc8 = new loginrecoverController(this);   
     }//GEN-LAST:event_btnRecoverAccountActionPerformed
 
     private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
