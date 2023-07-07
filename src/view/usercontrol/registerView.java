@@ -265,7 +265,17 @@ public class registerView extends javax.swing.JFrame {
 
     private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
         // TODO add your handling code here:
-            registerController rc7 = new registerController(this);
+    String username = txtUsername.getText();
+    String password = txtPassword.getText();
+    String passwordCheck = txtPasswordCheck.getText();
+    String email = txtEmail.getText();
+    String security = txtSecurity.getText();
+
+    if (username.isEmpty() || password.isEmpty() || passwordCheck.isEmpty() || email.isEmpty() || security.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Please fill in all the fields.");
+    } else {
+        registerController rc7 = new registerController(this);
+    }
     }//GEN-LAST:event_btnRegisterActionPerformed
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
