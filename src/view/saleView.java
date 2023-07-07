@@ -155,7 +155,7 @@ public class saleView extends javax.swing.JPanel {
      
    public void clearText(){
        lblCustomerName.setText("Guest");
-       txtCustomerID.setText("0");
+       txtCustomerID.setText("");
        comboProduct.setSelectedItem(null);
        txtQty.setText("0");
        lblProductcode.setText(null);
@@ -844,18 +844,36 @@ public class saleView extends javax.swing.JPanel {
     }//GEN-LAST:event_comboProductActionPerformed
 
     private void txtQtyKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtQtyKeyReleased
-    if (txtQty.getText()!=null){    
-    calculateProductTotal();}
+    String input = txtQty.getText();
+    if (!input.isEmpty()) {
+        try {
+            int quantity = Integer.parseInt(input);
+            calculateProductTotal();
+        } catch (NumberFormatException e) {
+            // Non-numeric input, display an error message or handle it accordingly
+            // For example, you can clear the field and show an error message
+            txtQty.setText("");
+            JOptionPane.showMessageDialog(this, "Please enter a valid number.");
+        }
+    }
     
     }//GEN-LAST:event_txtQtyKeyReleased
-
+    
+    private void stockCheck(){
+        productModel product3 = productController.getProduct((String) comboProduct.getSelectedItem());
+           String productId = product3.getBarcode();
+        // Fetch the product quantity from the database
+        int currentQuantity = productController.getQuantity(productId);
+            System.out.println("Current Quantity at Stock:: "+currentQuantity);
+        int requestedQuantity = Integer.parseInt(txtQty.getText());
+        System.out.println("Requested Quantity:: "+requestedQuantity);
+    }
+    
     private void btnAddToCartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddToCartActionPerformed
 
         //add  cart to product details 
        String quantity = txtQty.getText();
        if("0".equals(quantity)){
-          
-       System.out.println("Quanity is Zero");
        JOptionPane.showMessageDialog(null, "Quanity is Zero");
        }
        else{
@@ -864,7 +882,6 @@ public class saleView extends javax.swing.JPanel {
            String productId = product2.getBarcode();
 
         DefaultTableModel dt = (DefaultTableModel) tblSale.getModel();
-        
         
 
         // Fetch the product quantity from the database
@@ -879,6 +896,8 @@ public class saleView extends javax.swing.JPanel {
         }
         
         else{
+        
+
         Vector v = new Vector();
         
         v.add(lblProductcode.getText()); // barcode
@@ -897,6 +916,8 @@ public class saleView extends javax.swing.JPanel {
         int totalQty = calculateCartItems(dt);
         System.out.println("Total Quantity: " + totalQty);
         lblTotalqtydisplay.setText(String.valueOf(totalQty));
+        
+//        updateStock();
         }
        }
         
@@ -978,8 +999,9 @@ public class saleView extends javax.swing.JPanel {
             lblCustomerName.setText(customer.getCustomer_name());
         }
         else{
-            JOptionPane.showMessageDialog(null, "No Membership!");
+            
             clearText();
+            lblCustomerName.setText("Guest");
         }
         }
         
