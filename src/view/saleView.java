@@ -964,7 +964,17 @@ public class saleView extends javax.swing.JPanel {
 
     private void txtPaidamtKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPaidamtKeyReleased
         
-        calculatePaymentChange();
+        String input = txtPaidamt.getText();
+    if (!input.isEmpty()) {
+        if (!input.matches("\\d+")) {
+            // Non-integer input, display an error message or handle it accordingly
+            // For example, you can clear the field and show an error message
+            txtPaidamt.setText("");
+            JOptionPane.showMessageDialog(this, "Please enter a valid number.");
+        } else {
+            calculatePaymentChange();
+        }
+    }
 
     }//GEN-LAST:event_txtPaidamtKeyReleased
 
