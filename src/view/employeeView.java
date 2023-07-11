@@ -19,7 +19,7 @@ import javax.swing.table.TableRowSorter;
 
 /**
  *
- * @author Binita
+ * @author Go
  */
 public class employeeView extends javax.swing.JPanel {
 
@@ -835,7 +835,19 @@ public class employeeView extends javax.swing.JPanel {
 
     }//GEN-LAST:event_btnViewCustomerRepActionPerformed
 
+    private void btnPrint1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrint1ActionPerformed
+        // TODO add your handling code here:
+          MessageFormat header = new MessageFormat("Employee Report");
+        MessageFormat footer = new MessageFormat("Bhat-Bhateni POS Management System");
+        try{
+            reportArea.print(header, footer);
 
+        }
+        catch (PrinterException e){
+            JOptionPane.showMessageDialog(null,"Error! Cannot Print"+e.getMessage());
+
+        }
+    }//GEN-LAST:event_btnPrint1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
