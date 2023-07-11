@@ -821,7 +821,46 @@ public class supplierView extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnPrintActionPerformed
 
+    private void btnViewCustomerRepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewCustomerRepActionPerformed
+        // serch customerView for id
+        String getid = txtSid.getText();
+        ArrayList<supplierModel> supplier = supplierController.getSupplierBySupplierID(getid);
+        // Create a StringBuilder to store the formatted payment information
+        StringBuilder report = new StringBuilder();
 
+        // Iterate over each payment and append its details to the report
+        for (supplierModel paymentItem : supplier) {
+            report.append("Supplier ID: ").append(paymentItem.getSupplier_id()).append("\n");
+            report.append("Supplier Name: ").append(paymentItem.getSupplier_name()).append("\n");
+            report.append("VAT/PAN: ").append(paymentItem.getSupplier_vatpan()).append("\n");
+            report.append("Address: ").append(paymentItem.getSupplier_address()).append("\n");
+            report.append("City: ").append(paymentItem.getSupplier_city()).append("\n");
+            report.append("Email: ").append(paymentItem.getSupplier_email()).append("\n");
+            report.append("Contact Person: ").append(paymentItem.getSupplier_cname()).append("\n");
+            report.append("Designation: ").append(paymentItem.getSupplier_cdesig()).append("\n");
+            report.append("PPAN: ").append(paymentItem.getSupplier_cppan()).append("\n");
+            report.append("Email: ").append(paymentItem.getSupplier_cemail()).append("\n");
+            report.append("Mobile: ").append(paymentItem.getSupplier_cmob()).append("\n");
+            report.append("----------------------------------------\n");
+        }
+
+        // Set the formatted payment report to the reportArea
+        reportArea.setText(report.toString());
+    }//GEN-LAST:event_btnViewCustomerRepActionPerformed
+
+    private void btnPrint1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrint1ActionPerformed
+        // TODO add your handling code here:
+        MessageFormat header = new MessageFormat("Supplier Report");
+        MessageFormat footer = new MessageFormat("Bhat-Bhateni POS Management System");
+        try{
+            reportArea.print(header, footer);
+
+        }
+        catch (PrinterException e){
+            JOptionPane.showMessageDialog(null,"Error! Cannot Print"+e.getMessage());
+
+        }
+    }//GEN-LAST:event_btnPrint1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
