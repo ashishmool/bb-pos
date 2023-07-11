@@ -24,6 +24,9 @@ import javax.swing.table.TableRowSorter;
 public class employeeView extends javax.swing.JPanel {
 
 
+    /**
+     * Creates new form customer
+     */
     public employeeView() {
         
         initComponents();
@@ -805,7 +808,34 @@ public class employeeView extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnPrintActionPerformed
 
-    
+    private void btnViewCustomerRepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewCustomerRepActionPerformed
+        // serch customerView for id
+        String getid = txtCid.getText();
+        ArrayList<employeeModel> employee = employeeController.getEmployeeByEmployeeID(getid);
+        // Create a StringBuilder to store the formatted payment information
+        StringBuilder report = new StringBuilder();
+
+        // Iterate over each payment and append its details to the report
+        for (employeeModel paymentItem : employee) {
+            report.append("Employee ID: ").append(paymentItem.getEmployee_id()).append("\n");
+            report.append("Employee Name: ").append(paymentItem.getEmployee_name()).append("\n");
+            report.append("PPAN: ").append(paymentItem.getEmployee_ppan()).append("\n");
+            report.append("Permanent Address: ").append(paymentItem.getEmployee_padd()).append("\n");
+            report.append("Temporary Address: ").append(paymentItem.getEmployee_tadd()).append("\n");
+            report.append("Mobile: ").append(paymentItem.getEmployee_mob()).append("\n");
+            report.append("Emergency Contact: ").append(paymentItem.getEmployee_cname()).append("\n");
+            report.append("Relationship: ").append(paymentItem.getEmployee_crela()).append("\n");
+            report.append("E. Contact Mobile: ").append(paymentItem.getEmployee_cmob()).append("\n");
+            report.append("Alternate No.: ").append(paymentItem.getEmployee_caltnum()).append("\n");
+            report.append("----------------------------------------\n");
+        }
+
+        // Set the formatted payment report to the reportArea
+        reportArea.setText(report.toString());
+
+    }//GEN-LAST:event_btnViewCustomerRepActionPerformed
+
+
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
