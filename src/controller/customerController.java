@@ -7,17 +7,16 @@ package controller;
 import java.sql.*;
 import java.util.*;
 import database.*;
-import javax.swing.table.DefaultTableModel;
-//import view.*;
 import model.*;
 
 
 /**
  *
- * @author asism
+ * @author ashishmool
  */
 public class customerController {
     
+    //boolean function to add new customer in table: membership
     public static boolean addCustomer(customerModel customer){
         try{
             Connection connection = myConnection.myDatabase();
@@ -39,6 +38,7 @@ public class customerController {
         return false;
     }
     
+//boolean function to search customer in table: membership
     public static customerModel searchCustomer(String customer_id){
         
         customerModel customer=null;
@@ -64,6 +64,33 @@ public class customerController {
         return customer;
     }
     
+    //function to search customer by using ID in table: membership
+    public static customerModel searchCustomerbyID(String customer_id){
+        
+        customerModel customer=null;
+        try{
+            String sql = "SELECT * FROM membership WHERE c_id = '"+ customer_id+"' ";
+            Connection connection = myConnection.myDatabase();
+            Statement stm = connection.createStatement();
+            ResultSet rset = stm.executeQuery(sql);
+            if (rset.next()){
+                customer = new customerModel(
+                rset.getString(1),
+                rset.getString(2),
+                rset.getString(3),
+                rset.getString(4),
+                rset.getString(5),
+                rset.getString(6),
+                rset.getString(7));
+            }
+        }
+        catch (SQLException e2){
+            System.out.println(e2.getMessage());
+        }
+        return customer;
+    }
+    
+  //boolean function to update existing customer in table: membership  
 public static boolean updateCustomer(customerModel customer){
         try{
             String sql = "UPDATE membership SET full_name = ?, mob_no = ?, bill_add = ?, ship_add = ?, email = ?, nationality = ? WHERE c_id = ? ";
@@ -85,6 +112,8 @@ public static boolean updateCustomer(customerModel customer){
         return false;
     }
 
+
+//boolean function to delete existing customer from table: membership
 public static boolean deleteCustomer(customerModel customer){
     try{
         Connection connection = myConnection.myDatabase();
@@ -100,6 +129,7 @@ public static boolean deleteCustomer(customerModel customer){
         return false;
 }
 
+//function to get all exisiting customer from table membership to load into the customers table in view
 public static ArrayList<customerModel> getAllCustomers(){
     ArrayList<customerModel> allCustomer = new ArrayList<>();
     try{
@@ -127,5 +157,36 @@ public static ArrayList<customerModel> getAllCustomers(){
     return allCustomer;
 }
 
+//function to load last customer to display the next customer id for easy addition of customer from table: membership
+public int loadLastCustomer(){
+    
+        int lastCustomer = 0;
+        
+        
+        try {
+        
+        Connection connection = myConnection.myDatabase();
+        Statement s = connection.createStatement();
+        ResultSet rs = s.executeQuery("SELECT c_id FROM membership ORDER BY c_id DESC LIMIT 1");
+          
+          if (rs.next()) {
+              
+              
+              
+              lastCustomer = rs.getInt("c_id");
+              
+              
+          }
+          
+          rs.close();
+          s.close();
+          connection.close();
+                    
+          
+      } catch (Exception e) {
+      }
+     return lastCustomer;
+             
+      }
 
 }

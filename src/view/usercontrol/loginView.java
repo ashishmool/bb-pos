@@ -2,8 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package view;
+package view.usercontrol;
 
+import controller.usercontrol.loginController;
+import model.usercontrol.loginModel;
 import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 import model.*;
@@ -24,7 +26,7 @@ public class loginView extends javax.swing.JFrame {
      */
     public loginView() {
         initComponents();
-        SetImageIcon();
+//        SetImageIcon();
         this.setLocationRelativeTo(null);
     }
     
@@ -181,7 +183,7 @@ public class loginView extends javax.swing.JFrame {
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         // TODO add your handling code here:
-        loginController l5 = new loginController(this);
+        loginController l6 = new loginController(this);
         
     }//GEN-LAST:event_btnLoginActionPerformed
 
