@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package model;
+package model.usercontrol;
 
 import view.*;
 import controller.*;
@@ -13,8 +13,6 @@ import controller.*;
  */
 public class recoverModel {
     String username, pass, re_pass, email, sec_ans;
-    recoverModel model;
-    recoverView view;
 
 
     public recoverModel(String username, String pass, String re_pass, String email, String sec_ans){

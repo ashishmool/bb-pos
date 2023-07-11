@@ -12,19 +12,28 @@ import java.util.Date;
  */
 public class paymentModel {
     String customer;
-    int inv_id;
-    double total_qty, total_amount, paid_amount,change;
+    int inv_id, cust_id,total_qty;
+    double  total_amount, paid_amount,change;
     Date invoicedate;
 
 
-    public paymentModel(int inv_id, String customer, double total_qty, double total_amount, double paid_amount, double change, Date invoicedate) {
+    public paymentModel(int inv_id, String customer, int cust_id, int total_qty, double total_amount, double paid_amount, double change, Date invoicedate) {
         this.inv_id = inv_id;
+        this.cust_id=cust_id;
         this.customer = customer;
         this.total_qty = total_qty;
         this.total_amount = total_amount;
         this.paid_amount = paid_amount;
         this.change = change;
         this.invoicedate = invoicedate;
+    }
+
+    public int getCust_id() {
+        return cust_id;
+    }
+
+    public void setCust_id(int cust_id) {
+        this.cust_id = cust_id;
     }
 
 
@@ -44,11 +53,11 @@ public class paymentModel {
         this.customer = customer;
     }
 
-    public double getTotal_qty() {
+    public int getTotal_qty() {
         return total_qty;
     }
 
-    public void setTotal_qty(double total_qty) {
+    public void setTotal_qty(int total_qty) {
         this.total_qty = total_qty;
     }
     

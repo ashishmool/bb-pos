@@ -2,8 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package controller;
+package controller.usercontrol;
 
+import view.usercontrol.loginrecoverView;
+import model.usercontrol.loginrecoverModel;
 import database.*;
 import model.*;
 import view.*;
@@ -35,9 +37,8 @@ public class loginrecoverController {
                     model=view.getUser();
                     if(checkUser(model))
                     {
-                        view.setMessage("Login for Recovery Successful!");
                         view.validDisplay();
-//                        view.dispose();
+
                     }
                     else
                     {

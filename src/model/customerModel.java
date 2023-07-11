@@ -18,6 +18,7 @@ public class customerModel {
     private String customer_email;
     private String customer_nationality;
     
+    
     public customerModel(){
         
     }
