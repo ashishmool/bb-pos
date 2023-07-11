@@ -32,7 +32,19 @@ public class supplierView extends javax.swing.JPanel {
         
         initComponents();
         loadData();
+        retrieveLastSupplier();
 
+    }
+    
+        public void retrieveLastSupplier(){
+        supplierController controller = new supplierController();
+        int lastSupplier = controller.loadLastSupplier();
+        processLastSupplier(lastSupplier);
+    }
+    
+    private void processLastSupplier(int lastSupplier){
+        
+        txtSupplierid.setText(String.valueOf(lastSupplier+1));
     }
 
     public void loadData(){
@@ -136,10 +148,12 @@ public class supplierView extends javax.swing.JPanel {
         lblNote = new javax.swing.JLabel();
         btnPrint = new javax.swing.JButton();
         jPanel11 = new javax.swing.JPanel();
-        jButton5 = new javax.swing.JButton();
-        cid = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        jButton6 = new javax.swing.JButton();
+        txtSid = new javax.swing.JTextField();
+        btnViewCustomerRep = new javax.swing.JButton();
+        btnPrint1 = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        reportArea = new javax.swing.JTextArea();
+        lblCustomerRep = new javax.swing.JLabel();
 
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -584,50 +598,66 @@ public class supplierView extends javax.swing.JPanel {
 
         jTabbedPane1.addTab("Search Supplier", jPanel4);
 
-        jButton5.setText("All Supplier Reports");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        btnViewCustomerRep.setText("View Report");
+        btnViewCustomerRep.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                btnViewCustomerRepActionPerformed(evt);
             }
         });
 
-        jLabel4.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLabel4.setText("Supplier ID :");
-
-        jButton6.setText("View Report");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        btnPrint1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        btnPrint1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/print.png"))); // NOI18N
+        btnPrint1.setText("Print");
+        btnPrint1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                btnPrint1ActionPerformed(evt);
             }
         });
+
+        reportArea.setColumns(20);
+        reportArea.setRows(5);
+        jScrollPane3.setViewportView(reportArea);
+
+        lblCustomerRep.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        lblCustomerRep.setText("Supplier ID:");
 
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
         jPanel11.setLayout(jPanel11Layout);
         jPanel11Layout.setHorizontalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel11Layout.createSequentialGroup()
-                .addGap(41, 41, 41)
-                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, 333, Short.MAX_VALUE)
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel11Layout.createSequentialGroup()
-                        .addGap(11, 11, 11)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE))
-                    .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(cid, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addContainerGap(793, Short.MAX_VALUE))
+                        .addGap(32, 32, 32)
+                        .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnViewCustomerRep, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel11Layout.createSequentialGroup()
+                                .addGap(11, 11, 11)
+                                .addComponent(lblCustomerRep, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(txtSid, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel11Layout.createSequentialGroup()
+                        .addGap(101, 101, 101)
+                        .addComponent(btnPrint1, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(70, 70, 70)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 672, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(62, Short.MAX_VALUE))
         );
         jPanel11Layout.setVerticalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel11Layout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37)
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel11Layout.createSequentialGroup()
+                .addContainerGap(127, Short.MAX_VALUE)
+                .addComponent(lblCustomerRep, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cid, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtSid, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(250, Short.MAX_VALUE))
+                .addComponent(btnViewCustomerRep, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(48, 48, 48)
+                .addComponent(btnPrint1, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(132, 132, 132))
+            .addGroup(jPanel11Layout.createSequentialGroup()
+                .addGap(72, 72, 72)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 399, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Reports", jPanel11);
@@ -663,27 +693,6 @@ public class supplierView extends javax.swing.JPanel {
         // mouse clk & get data to textfeld
 
     }//GEN-LAST:event_tblSupplierMouseClicked
-
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // Open All Suppliers
-        
-//        reportView r = new reportView("src\\reports\\Allsupplier.jasper");
-//        r.setVisible(true);
-        
-    }//GEN-LAST:event_jButton5ActionPerformed
-
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // serch supplier for id
-        
-//        HashMap para = new HashMap();
-//        para.put("Para_sid", cid.getText());
-//        
-//        reportView r = new reportView("src\\reports\\sidsupplier.jasper", para);
-//        r.setVisible(true);
-        
-        
-        
-    }//GEN-LAST:event_jButton6ActionPerformed
 
     private void txtSupcityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSupcityActionPerformed
         // TODO add your handling code here:
@@ -813,16 +822,17 @@ public class supplierView extends javax.swing.JPanel {
     }//GEN-LAST:event_btnPrintActionPerformed
 
 
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClear;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnPrint;
+    private javax.swing.JButton btnPrint1;
     private javax.swing.JButton btnSave;
     private javax.swing.JButton btnSearch1;
     private javax.swing.JButton btnUpdate;
-    private javax.swing.JTextField cid;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
+    private javax.swing.JButton btnViewCustomerRep;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -831,7 +841,6 @@ public class supplierView extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
@@ -849,8 +858,11 @@ public class supplierView extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JLabel lblCustomerRep;
     private javax.swing.JLabel lblNote;
+    private javax.swing.JTextArea reportArea;
     private javax.swing.JTable tblSupplier;
     private javax.swing.JTextField txtCdesig;
     private javax.swing.JTextField txtCemail;
@@ -859,6 +871,7 @@ public class supplierView extends javax.swing.JPanel {
     private javax.swing.JTextField txtCompanyname;
     private javax.swing.JTextField txtCppan;
     private javax.swing.JTextField txtSearchbyid;
+    private javax.swing.JTextField txtSid;
     private javax.swing.JTextArea txtSupadd;
     private javax.swing.JTextField txtSupcity;
     private javax.swing.JTextField txtSupemail;
