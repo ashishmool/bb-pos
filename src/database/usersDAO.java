@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package database;
 
 import model.usercontrol.recoverModel;
@@ -11,10 +8,7 @@ import model.*;
 import view.*;
 import controller.*;
 
-/**
- *
- * @author asism
- */
+
 public class usersDAO extends myConnection {
     
     public boolean add(recoverModel rec)
