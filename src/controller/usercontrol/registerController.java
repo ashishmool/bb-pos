@@ -13,6 +13,7 @@ import view.*;
 import javax.swing.*;
 import java.sql.*;
 import java.util.regex.Pattern;
+import junit.framework.Assert;
 
 /**
  *
@@ -39,6 +40,7 @@ public class registerController {
             try
             {
                 model=view.getUser();
+                Assert.assertEquals(true,checkUser(model));
                 if (checkUser(model))
                 {
                     view.setMessage("Registered Successfully!");
@@ -58,8 +60,7 @@ public class registerController {
         public boolean checkUser(registerModel user) throws Exception
                
         {
-            String email_format = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^-]+(?:\\."+ "[a-zA-Z0-9_!#$%&'*+/=?`{|}~^-]+)*@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$";
-            Pattern email = Pattern.compile(email_format);
+            
             
             
             String pass1 = user.getPass();
@@ -79,7 +80,7 @@ public class registerController {
                         try
                     {
                         Connection conn=myConnection.myDatabase();
-                        String sql="insert into users (uname,pass,re_pass,email,sec_ans) values (?,?,?,?,?)";
+                        String sql="insert into users (uname,pass,re_pass,email,sec_ans,accessrole) values (?,?,?,?,?,?)";
                         pst = conn.prepareStatement(sql);
 
                         pst.setString(1,user.getUname());
@@ -87,10 +88,11 @@ public class registerController {
                         pst.setString(3,user.getRe_pass());
                         pst.setString(4,user.getEmail());
                         pst.setString(5,user.getSec_ans());
+                        pst.setString(6, user.getUser_accesscontrol());
 
                         pst.executeUpdate();
                         System.out.println("Data Inserted");
-                        JOptionPane.showMessageDialog(null,"Data Registered Successfully");
+                        JOptionPane.showMessageDialog(null,"User Registered Successfully");
                         loginView lv=new loginView();
                             lv.setVisible(true);
                             view.dispose();
